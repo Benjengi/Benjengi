@@ -6,182 +6,207 @@
   <title>Your Name | Engineering Portfolio</title>
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: url('https://images.unsplash.com/photo-1607623814075-620a6ecb1d8a?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
-      background-size: cover;
-      color: #f5f5f5;
+      background-color: #0e0e0e;
+      color: #f0f0f0;
       line-height: 1.6;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: -1;
+    nav {
+      background-color: #111;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: #f0f0f0;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #00bcd4;
     }
 
     header {
+      padding: 6rem 1rem 4rem;
       text-align: center;
-      padding: 60px 20px;
+      background-color: #121212;
     }
 
     header h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
+      font-size: 2.8em;
+      margin-bottom: 0.5rem;
     }
 
     header p {
       font-size: 1.2em;
-      color: #ccc;
+      color: #cccccc;
     }
 
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      background: #111;
-      border-bottom: 1px solid #333;
-    }
-
-    nav a {
-      color: #eee;
-      padding: 14px 20px;
-      text-decoration: none;
-      transition: background 0.3s;
-    }
-
-    nav a:hover {
-      background: #333;
+    main {
+      padding: 2rem 1rem;
+      max-width: 1000px;
+      margin: auto;
     }
 
     section {
-      background: rgba(20, 20, 20, 0.85);
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: 30px auto;
-      border-radius: 8px;
+      margin-bottom: 3rem;
     }
 
     h2 {
-      border-bottom: 1px solid #444;
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-      color: #f9f9f9;
+      border-bottom: 2px solid #222;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.6em;
+      color: #00bcd4;
     }
 
-    .project, .skills-list {
-      margin-bottom: 20px;
+    .project, .extra, .media-item {
+      background-color: #1a1a1a;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
 
-    .skills-list ul {
-      list-style: none;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 10px;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    input, textarea {
+      padding: 0.8rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #2b2b2b;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 0.8rem;
+      background-color: #00bcd4;
+      border: none;
+      border-radius: 5px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #00acc1;
     }
 
     footer {
       text-align: center;
-      padding: 20px;
-      background: #111;
-      color: #aaa;
-      font-size: 0.9em;
-    }
-
-    a {
-      color: #66ccff;
-    }
-
-    a:hover {
-      color: #88ddff;
+      padding: 2rem 1rem;
+      background-color: #111;
+      color: #888;
+      font-size: 0.9rem;
     }
 
     @media (max-width: 600px) {
+      nav ul {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
       header h1 {
-        font-size: 1.8em;
-      }
-
-      nav a {
-        padding: 12px 10px;
-        font-size: 0.95em;
-      }
-
-      section {
-        padding: 30px 15px;
-      }
-
-      .skills-list ul {
-        grid-template-columns: 1fr;
+        font-size: 2em;
       }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Your Name</h1>
-    <p>Aspiring Aerospace Engineer | Passion for Space Systems & Mechanical Design</p>
-  </header>
-
   <nav>
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
+    <ul>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#extras">Extras</a></li>
+      <li><a href="#media">Media</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
   </nav>
 
-  <section id="about">
-    <h2>About</h2>
-    <p>
-      I'm an aspiring engineer with a strong interest in aerospace systems and mechanical design.
-      While I don’t have industry experience yet, I’m actively building personal projects to develop hands-on skills in prototyping, electronics, and problem-solving.
-    </p>
-  </section>
+  <header>
+    <h1>Your Name</h1>
+    <p>Aspiring Engineer | Focused on Aerospace, Prototyping, and Systems</p>
+  </header>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="project">
-      <h3>Custom Electric Skateboard (In Progress)</h3>
-      <p>Designing a high-torque, off-road electric skateboard for 120kg rider weight and 30+ mph speed. Includes motor selection, ESC tuning, and battery integration.</p>
-    </div>
-    <div class="project">
-      <h3>Mini Satellite Model (Planned)</h3>
-      <p>Functional CubeSat replica with working comms and power systems to simulate LEO operations. Will be used to demonstrate system integration and telemetry concepts.</p>
-    </div>
-  </section>
+  <main>
+    <section id="projects">
+      <h2>Featured Projects</h2>
+      <div class="project">
+        <h3>Custom Electric Skateboard</h3>
+        <p>Building a high-torque off-road electric skateboard designed to support up to 120kg and hit speeds over 30mph. Focus on powertrain, thermal control, and battery integration.</p>
+      </div>
+      <div class="project">
+        <h3>Mini CubeSat Simulator</h3>
+        <p>Designing a functional CubeSat model with power, comms, and data subsystems using Arduino and sensors — showcasing engineering systems integration.</p>
+      </div>
+    </section>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="skills-list">
-      <ul>
-        <li>CAD (Fusion 360, SolidWorks)</li>
-        <li>Arduino & Microcontroller Projects</li>
-        <li>3D Printing & Mechanical Assembly</li>
-        <li>Basic Python & MATLAB</li>
-        <li>Soldering, Circuit Design</li>
-        <li>System Integration</li>
-      </ul>
-    </div>
-  </section>
+    <section id="extras">
+      <h2>Extras</h2>
+      <div class="extra">
+        <p>I document my learning process, explore aerospace concepts, and share micro-projects and test rigs I build along the way. Watch this space for build logs and visuals.</p>
+      </div>
+    </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: youremail@example.com</p>
-    <p>GitHub: <a href="https://github.com/yourusername" target="_blank">yourusername</a></p>
-    <p>LinkedIn: <a href="https://linkedin.com/in/yourusername" target="_blank">yourusername</a></p>
-  </section>
+    <section id="media">
+      <h2>Media</h2>
+      <div class="media-item">
+        <p>Coming soon: CAD renders, wiring diagrams, and time-lapses of project builds.</p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+  </main>
 
   <footer>
-    &copy; 2025 Your Name. Built from scratch.
+    &copy; 2025 Your Name. Built with HTML and passion.
   </footer>
+
+  <script>
+    // Smooth scrolling
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
