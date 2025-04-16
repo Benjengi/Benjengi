@@ -2,137 +2,128 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Your Name | Engineering Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ben Smith | Mechanical Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #0e0e0e;
+      --text: #f0f0f0;
+      --accent: #00bcd4;
+      --card: #1a1a1a;
+    }
+
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0e0e0e;
-      color: #f0f0f0;
-      line-height: 1.6;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
     }
 
     nav {
-      background-color: #111;
-      padding: 1rem;
+      position: fixed;
+      width: 100%;
+      background: rgba(10, 10, 10, 0.9);
       display: flex;
       justify-content: center;
-      position: sticky;
-      top: 0;
+      gap: 2rem;
+      padding: 1rem;
       z-index: 1000;
     }
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-    }
-
     nav a {
-      color: #f0f0f0;
+      color: var(--text);
       text-decoration: none;
       font-weight: bold;
       transition: color 0.3s;
     }
 
     nav a:hover {
-      color: #00bcd4;
-    }
-
-    header {
-      padding: 6rem 1rem 4rem;
-      text-align: center;
-      background-color: #121212;
-    }
-
-    header h1 {
-      font-size: 2.8em;
-      margin-bottom: 0.5rem;
-    }
-
-    header p {
-      font-size: 1.2em;
-      color: #cccccc;
-    }
-
-    main {
-      padding: 2rem 1rem;
-      max-width: 1000px;
-      margin: auto;
+      color: var(--accent);
     }
 
     section {
-      margin-bottom: 3rem;
+      padding: 100px 20px;
+      max-width: 960px;
+      margin: auto;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 5rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      color: #aaa;
+      font-size: 1.2rem;
     }
 
     h2 {
-      border-bottom: 2px solid #222;
-      padding-bottom: 0.5rem;
+      font-size: 2rem;
+      color: var(--accent);
       margin-bottom: 1rem;
-      font-size: 1.6em;
-      color: #00bcd4;
     }
 
-    .project, .extra, .media-item {
-      background-color: #1a1a1a;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
+    .card {
+      background: var(--card);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    input, textarea {
-      padding: 0.8rem;
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      background: #2b2b2b;
+      color: var(--text);
       border: none;
-      border-radius: 5px;
-      background-color: #2b2b2b;
-      color: #fff;
-      font-size: 1rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
     }
 
-    button {
-      padding: 0.8rem;
-      background-color: #00bcd4;
-      border: none;
-      border-radius: 5px;
-      color: #000;
+    .contact-form button {
+      padding: 1rem 2rem;
+      background: var(--accent);
+      color: black;
       font-weight: bold;
+      border: none;
+      border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    button:hover {
-      background-color: #00acc1;
     }
 
     footer {
       text-align: center;
-      padding: 2rem 1rem;
-      background-color: #111;
-      color: #888;
+      padding: 2rem;
+      color: #666;
       font-size: 0.9rem;
     }
 
     @media (max-width: 600px) {
-      nav ul {
-        flex-direction: column;
-        gap: 1rem;
+      .hero h1 {
+        font-size: 2rem;
       }
 
-      header h1 {
-        font-size: 2em;
+      nav {
+        flex-direction: column;
+        gap: 1rem;
       }
     }
   </style>
@@ -140,73 +131,57 @@
 <body>
 
   <nav>
-    <ul>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#extras">Extras</a></li>
-      <li><a href="#media">Media</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
   </nav>
 
-  <header>
-    <h1>Your Name</h1>
-    <p>Aspiring Engineer | Focused on Aerospace, Prototyping, and Systems</p>
-  </header>
+  <section class="hero">
+    <h1>Ben Smith</h1>
+    <p>MEng Mechanical Engineering Student | Aspiring Aerospace & Systems Engineer</p>
+  </section>
 
-  <main>
-    <section id="projects">
-      <h2>Featured Projects</h2>
-      <div class="project">
-        <h3>Custom Electric Skateboard</h3>
-        <p>Building a high-torque off-road electric skateboard designed to support up to 120kg and hit speeds over 30mph. Focus on powertrain, thermal control, and battery integration.</p>
-      </div>
-      <div class="project">
-        <h3>Mini CubeSat Simulator</h3>
-        <p>Designing a functional CubeSat model with power, comms, and data subsystems using Arduino and sensors — showcasing engineering systems integration.</p>
-      </div>
-    </section>
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="card">
+      <p>
+        I’m a Mechanical Engineering student pursuing my MEng, driven by curiosity and a desire to design systems that move the world — literally. From off-road electric skateboards to miniature satellite models, I enjoy taking on hands-on projects that bridge mechanical, electrical, and software disciplines.
+      </p>
+    </div>
+  </section>
 
-    <section id="extras">
-      <h2>Extras</h2>
-      <div class="extra">
-        <p>I document my learning process, explore aerospace concepts, and share micro-projects and test rigs I build along the way. Watch this space for build logs and visuals.</p>
-      </div>
-    </section>
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="card">
+      <h3>Custom Electric Skateboard</h3>
+      <p>
+        Currently building a high-torque, all-terrain electric skateboard optimized for heavy load, speed, and off-road capability. Features custom battery design, motor integration, and ESC configuration.
+      </p>
+    </div>
+    <div class="card">
+      <h3>Miniature CubeSat Simulator</h3>
+      <p>
+        Designing a desktop CubeSat model with functioning comms, telemetry, and power systems — a hands-on exploration of system integration and satellite subsystems.
+      </p>
+    </div>
+  </section>
 
-    <section id="media">
-      <h2>Media</h2>
-      <div class="media-item">
-        <p>Coming soon: CAD renders, wiring diagrams, and time-lapses of project builds.</p>
-      </div>
-    </section>
-
-    <section id="contact">
-      <h2>Contact Me</h2>
-      <form>
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
-        <textarea rows="5" placeholder="Your Message" required></textarea>
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="card contact-form">
+      <form action="https://formspree.io/f/your_form_id" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
         <button type="submit">Send Message</button>
       </form>
-    </section>
-  </main>
+      <p style="margin-top:1rem; color: #aaa;">or email: youremail@example.com</p>
+    </div>
+  </section>
 
   <footer>
-    &copy; 2025 Your Name. Built with HTML and passion.
+    &copy; 2025 Ben Smith. Engineered with care.
   </footer>
-
-  <script>
-    // Smooth scrolling
-    document.querySelectorAll('nav a').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-  </script>
 
 </body>
 </html>
