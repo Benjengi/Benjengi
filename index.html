@@ -7,8 +7,8 @@
 
 <!-- ---------- Fonts ---------- -->
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap'); /* Ben Smith header */
-@font-face{                               /* system San Francisco stack */
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');     /* BEN SMITH */
+@font-face{
   font-family:"SF Pro";
   src:local("SF Pro Display"),local("San Francisco Pro"),
       local("SF Pro Text"),local("-apple-system");
@@ -31,23 +31,22 @@ body.loading{overflow:hidden}
 }
 #loader.fade{opacity:0;visibility:hidden}
 .bar-frame{width:35%;max-width:400px;height:6px;border:1px solid var(--border)}
-.bar-progress{
-  height:100%;background:var(--fg);width:0;
-  animation:grow 3s linear forwards;
-}
+.bar-progress{height:100%;background:var(--fg);width:0;animation:grow 3s linear forwards}
 @keyframes grow{to{width:100%}}
 </style>
 
-<!-- ---------- SITE LAYOUT & COMPONENTS ---------- -->
+<!-- ---------- SITE STYLES ---------- -->
 <style>
 /* Header */
 header{padding:4rem 1rem 2.5rem;text-align:center}
 header h1{
-  font-family:'Anton',sans-serif;    /* NEW font */
-  text-transform:uppercase;          /* all caps */
+  font-family:'Anton',sans-serif;
+  text-transform:uppercase;
   font-size:2.8rem;
   margin:1.5rem 0 .2rem;
   letter-spacing:.5px;
+  display:inline-block;              /* enable transform */
+  transform:scaleX(0.92);            /* subtle slimming */
 }
 header p{font-size:1.2rem;opacity:.8;margin:0}
 
@@ -86,13 +85,12 @@ nav li a:hover{opacity:.7}
 section{max-width:900px;margin:0 auto;padding:2rem 1rem 3rem}
 section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--border);padding-bottom:.4rem;font-weight:600}
 
-/* ---------- Carousel of flash cards ---------- */
+/* ---------- Carousel ---------- */
 .card-carousel{
   display:flex;gap:1.2rem;overflow-x:auto;padding-bottom:.3rem;margin-top:1.2rem;
   scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior-x:contain
 }
 .card-carousel::-webkit-scrollbar{display:none}
-
 .card{
   flex:0 0 240px;height:320px;position:relative;
   border:1px solid var(--border);border-radius:16px;overflow:hidden;
@@ -104,7 +102,7 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
   max-width:90%;word-break:break-word;
 }
 
-/* ---------- Appear‑on‑scroll (non‑card) ---------- */
+/* ---------- Appear‑on‑scroll ---------- */
 .reveal{opacity:0;transition:opacity .75s ease-out}
 .reveal.active{opacity:1}
 
@@ -114,9 +112,7 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
 <body class="loading">
 
 <!-- ---------- LOADER ---------- -->
-<div id="loader">
-  <div class="bar-frame"><div class="bar-progress"></div></div>
-</div>
+<div id="loader"><div class="bar-frame"><div class="bar-progress"></div></div></div>
 
 <!-- backdrop dimmer -->
 <div id="dim"></div>
@@ -187,39 +183,23 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
   </p>
 </section>
 
-<!-- ---------- JS: loader, menu, dimmer & appear‑on‑scroll ---------- -->
+<!-- ---------- JS ---------- -->
 <script>
-/* --------------- Initial Loader --------------- */
+/* Loader */
 document.addEventListener("DOMContentLoaded",()=>{
   const loader=document.getElementById("loader");
-  setTimeout(()=>{
-    loader.classList.add("fade");
-    document.body.classList.remove("loading");
-  },3000);
+  setTimeout(()=>{loader.classList.add("fade");document.body.classList.remove("loading");},3000);
 });
 
-/* --------------- Hamburger & Dimmer --------------- */
-const menuBtn=document.getElementById("menuBtn");
-const sidebar=document.getElementById("sidebar");
-const dim=document.getElementById("dim");
+/* Menu & dimmer */
+const menuBtn=document.getElementById("menuBtn"),sidebar=document.getElementById("sidebar"),dim=document.getElementById("dim");
+menuBtn.addEventListener("click",()=>menuBtn.classList.contains("active")?close():open());
+dim.addEventListener("click",close);
+function open(){menuBtn.classList.add("active");sidebar.classList.add("open");dim.classList.add("show")}
+function close(){menuBtn.classList.remove("active");sidebar.classList.remove("open");dim.classList.remove("show")}
 
-function openMenu(){
-  menuBtn.classList.add("active");
-  sidebar.classList.add("open");
-  dim.classList.add("show");
-}
-function closeMenu(){
-  menuBtn.classList.remove("active");
-  sidebar.classList.remove("open");
-  dim.classList.remove("show");
-}
-menuBtn.addEventListener("click",()=>menuBtn.classList.contains("active")?closeMenu():openMenu());
-dim.addEventListener("click",closeMenu);
-
-/* --------------- Appear‑on‑scroll (non‑card) --------------- */
-const obs=new IntersectionObserver((entries,o)=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("active");o.unobserve(e.target)}});
-},{threshold:.15});
+/* Appear on scroll */
+const obs=new IntersectionObserver((e,o)=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("active");o.unobserve(x.target)}}),{threshold:.15});
 document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
 </script>
 </body>
