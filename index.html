@@ -1,53 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Ben Smith — Mechanical MEng Student</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ben Smith — Mechanical MEng Student</title>
 
-<!-- ---------- Base fonts + loader ---------- -->
+<!-- ---------- Base Fonts & Loader ---------- -->
 <style>
-@font-face{font-family:"SF Pro";
+@font-face{
+  font-family:"SF Pro";
   src:local("SF Pro Display"),local("San Francisco Pro"),
-      local("SF Pro Text"),local("-apple-system")}
-:root{--bg:#000;--fg:#fff;--accent:#1e1e1e;--border:#444;
-      --font:"SF Pro",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif}
+      local("SF Pro Text"),local("-apple-system");
+}
+:root{
+  --bg:#000;--fg:#fff;--accent:#1e1e1e;--border:#444;
+  --font:"SF Pro",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--fg);font-family:var(--font);line-height:1.6;
-     -webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:var(--fg);text-decoration:none}
 html{scroll-behavior:smooth}
 
-/* loader */
+/* Loader */
 body.loading{overflow:hidden}
 #loader{position:fixed;inset:0;background:var(--bg);
   display:flex;align-items:center;justify-content:center;
-  z-index:2000;opacity:1;transition:opacity .6s ease-out,visibility 0s .6s}
+  z-index:2000;opacity:1;transition:opacity .6s ease-out,visibility 0s .6s;}
 #loader.fade{opacity:0;visibility:hidden}
 .bar-frame{width:35%;max-width:400px;height:6px;border:1px solid var(--border)}
 .bar-progress{height:100%;background:var(--fg);width:0;animation:grow 3s linear forwards}
 @keyframes grow{to{width:100%}}
 </style>
 
-<!-- ---------- site styles ---------- -->
+<!-- ---------- Site Styles ---------- -->
 <style>
-/* header */
+/* Header */
 header{padding:4rem 1rem 2.5rem;text-align:center}
-header h1{font-size:2.8rem;font-weight:600;margin:1.5rem 0 .2rem}
+header h1{font-family:Arial,sans-serif;font-size:2.8rem;font-weight:600;margin:1.5rem 0 .2rem}
 header p{font-size:1.2rem;opacity:.8}
 .logo{width:90px;fill:#fff;transition:transform .8s cubic-bezier(.68,-.55,.27,1.55)}
 .logo:hover{transform:rotate(200deg)}
 
-/* menu */
-.menu-btn{position:fixed;top:18px;right:20px;width:32px;height:18px;
+/* Menu button (2‑bar) */
+.menu-btn{
+  position:fixed;top:18px;right:20px;width:32px;height:18px;
   display:flex;flex-direction:column;justify-content:space-between;
-  background:transparent;border:0;cursor:pointer;z-index:1001}
-.bar{height:2px;background:#fff;border-radius:2px;transition:transform .3s,width .3s}
+  background:transparent;border:0;cursor:pointer;z-index:1001
+}
+.bar{height:2px;background:#fff;border-radius:2px;transition:transform .3s,width .3s;margin:0}
 .bar1{width:100%}
 .bar2{width:70%;margin-left:auto}
 .menu-btn.active .bar1{transform:translateY(3px) rotate(45deg)}
 .menu-btn.active .bar2{transform:translateY(-3px) rotate(-45deg);width:100%;margin-left:0}
 
+/* Sidebar & Dimmer */
 nav{position:fixed;top:0;right:-100%;width:70%;max-width:280px;height:100%;
      background:var(--accent);padding:5rem 2rem;transition:right .35s ease;z-index:1000}
 nav.open{right:0}
@@ -58,31 +64,27 @@ nav li a:hover{opacity:.7}
      opacity:0;pointer-events:none;transition:opacity .3s;z-index:900}
 #dim.show{opacity:1;pointer-events:auto}
 
-/* sections */
+/* Sections */
 section{max-width:900px;margin:0 auto;padding:2rem 1rem 3rem}
 section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--border);
-  padding-bottom:.4rem;font-weight:600}
+           padding-bottom:.4rem;font-weight:600}
 
-/* carousel */
+/* Carousel */
 .card-carousel{display:flex;gap:1.2rem;overflow-x:auto;padding-bottom:.3rem;margin-top:1.2rem;
-  scroll-snap-type:x mandatory;overscroll-behavior-x:contain}
+               scroll-snap-type:x mandatory;overscroll-behavior-x:contain}
 .card-carousel::-webkit-scrollbar{display:none}
 .card{flex:0 0 240px;height:320px;border:1px solid var(--border);border-radius:16px;
-  background:#111;position:relative;scroll-snap-align:center}
+      background:#111;position:relative;scroll-snap-align:center}
 .card h3{position:absolute;top:33%;left:1rem;transform:translateY(-50%);
-  font-size:1.45rem;font-weight:600;line-height:1.25;max-width:90%}
+         font-size:1.45rem;font-weight:600;line-height:1.25;max-width:90%}
 
-/* contact icons */
+/* Contact Icons */
 .social-links{display:flex;justify-content:center;gap:1.5rem;margin-top:1rem}
 .social-links a{width:36px;height:36px;color:#fff}
 .social-links svg{width:100%;height:100%;stroke:currentColor;stroke-width:2;fill:none;
-  stroke-linecap:round;stroke-linejoin:round}
+                  stroke-linecap:round;stroke-linejoin:round}
 
-/* pong canvas */
-#pongWrapper{display:none;text-align:center;margin-top:1rem}
-#pongCanvas{background:#111;border:1px solid var(--border);border-radius:8px}
-
-/* reveal */
+/* Reveal */
 .reveal{opacity:0;transition:opacity .75s ease-out}
 .reveal.active{opacity:1}
 
@@ -91,53 +93,58 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
 </head>
 <body class="loading">
 
-<!-- loader -->
+<!-- ---------- Loader ---------- -->
 <div id="loader"><div class="bar-frame"><div class="bar-progress"></div></div></div>
 
 <div id="dim"></div>
 
-<!-- menu -->
+<!-- ---------- Menu Button ---------- -->
 <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">
   <span class="bar bar1"></span><span class="bar bar2"></span>
 </button>
 
-<!-- sidebar -->
+<!-- ---------- Sidebar ---------- -->
 <nav id="sidebar">
   <ul>
     <li><a href="#home" onclick="closeMenu()">Home</a></li>
     <li><a href="#about" onclick="closeMenu()">About</a></li>
     <li><a href="#portfolio" onclick="closeMenu()">Portfolio</a></li>
     <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
-    <li><a href="#pong" onclick="closeMenu()">Play Pong!</a></li>
     <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
   </ul>
 </nav>
 
-<!-- header -->
+<!-- ---------- Header ---------- -->
 <header id="home">
-  <svg class="logo" viewBox="0 0 100 100"><path d="M94 56v-12l-8-2c-1-4-2-7-4-11l5-6-9-9-6 5c-4-2-7-3-11-4l-2-8H44l-2 8c-4 1-7 2-11 4l-6-5-9 9 5 6c-2 4-3 7-4 11l-8 2v12l8 2c1 4 2 7 4 11l-5 6 9 9 6-5c4 2 7 3 11 4l2 8h12l2-8c4-1 7-2 11-4l6 5 9-9-5-6c2-4 3-7 4-11l8-2Z"/></svg>
+  <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M94 56v-12l-8-2c-1-4-2-7-4-11l5-6-9-9-6 5c-4-2-7-3-11-4l-2-8H44l-2 8c-4 1-7 2-11 4l-6-5-9 9 5 6c-2 4-3 7-4 11l-8 2v12l8 2c1 4 2 7 4 11l-5 6 9 9 6-5c4 2 7 3 11 4l2 8h12l2-8c4-1 7-2 11-4l6 5 9-9-5-6c2-4 3-7 4-11l8-2Zm-44 9a15 15 0 1 1 0-30 15 15 0 0 1 0 30Z"/>
+  </svg>
   <h1 class="reveal">Ben Smith</h1>
-  <p class="reveal">Mechanical MEng Student</p>
+  <p class="reveal">Mechanical MEng Student</p>
 </header>
 
-<!-- about -->
+<!-- ---------- About ---------- -->
 <section id="about">
   <h2 class="reveal">About Me</h2>
-  <p class="reveal">I’m a 25‑year‑old engineering master’s student with a keen interest in
-    contributing toward space exploration and research technology. My hobbies include playing
-    chess and reading non‑fiction literature on a wide range of topics.</p>
+  <p class="reveal">
+    I’m a 25‑year‑old engineering master’s student with a keen interest in contributing toward
+    space exploration and research technology. My hobbies include playing chess and reading
+    non‑fiction literature on a wide range of topics.
+  </p>
 </section>
 
-<!-- portfolio -->
+<!-- ---------- Portfolio ---------- -->
 <section id="portfolio">
   <h2 class="reveal">Portfolio</h2>
   <div class="card-carousel">
-    <div class="card"><h3>Coming<br>Soon</h3></div><div class="card"><h3>Coming<br>Soon</h3></div>
-    <div class="card"><h3>Coming<br>Soon</h3></div><div class="card"><h3>Coming<br>Soon</h3></div>
+    <div class="card"><h3>Coming<br>Soon</h3></div>
+    <div class="card"><h3>Coming<br>Soon</h3></div>
+    <div class="card"><h3>Coming<br>Soon</h3></div>
+    <div class="card"><h3>Coming<br>Soon</h3></div>
   </div>
 </section>
 
-<!-- skills -->
+<!-- ---------- Skills ---------- -->
 <section id="skills">
   <h2 class="reveal">Skills</h2>
   <div class="card-carousel">
@@ -149,40 +156,38 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
   </div>
 </section>
 
-<!-- ---------- Play Pong section ---------- -->
-<section id="pong">
-  <h2 class="reveal">Play Pong!</h2>
-  <div style="text-align:center" class="reveal">
-    <button id="pongBtn" style="padding:.6rem 1.4rem;font-size:1rem;
-      background:var(--accent);color:var(--fg);border:1px solid var(--border);
-      border-radius:6px;cursor:pointer">Start Game</button>
-    <div id="pongWrapper">
-      <canvas id="pongCanvas" width="480" height="320"></canvas>
-    </div>
-  </div>
-</section>
-
-<!-- contact -->
+<!-- ---------- Contact ---------- -->
 <section id="contact">
   <h2 class="reveal">Contact</h2>
   <div class="social-links reveal">
+    <!-- Email Icon -->
     <a href="mailto:ben_smith_224@yahoo.com" aria-label="Email Ben Smith">
-      <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
-        <polyline points="2,6 12,13 22,6"/></svg></a>
+      <svg viewBox="0 0 24 24">
+        <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
+        <polyline points="2,6 12,13 22,6"/>
+      </svg>
+    </a>
+    <!-- Instagram Icon (outline, no corner dot) -->
     <a href="https://www.instagram.com/astromechig" target="_blank" aria-label="Instagram profile">
-      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-        <circle cx="12" cy="12" r="4"/></svg></a>
+      <svg viewBox="0 0 24 24">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4"/>
+      </svg>
+    </a>
   </div>
 </section>
 
 <!-- ---------- JavaScript ---------- -->
 <script>
 /* Loader */
-document.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>{document.getElementById('loader')
-  .classList.add('fade');document.body.classList.remove('loading');},3000)});
+document.addEventListener('DOMContentLoaded',()=>{
+  const loader=document.getElementById('loader');
+  setTimeout(()=>{loader.classList.add('fade');document.body.classList.remove('loading');},3000);
+});
 
-/* Menu */
-const menuBtn=document.getElementById('menuBtn'),sidebar=document.getElementById('sidebar'),
+/* Menu & Dimmer */
+const menuBtn=document.getElementById('menuBtn'),
+      sidebar=document.getElementById('sidebar'),
       dim=document.getElementById('dim');
 menuBtn.addEventListener('click',()=>menuBtn.classList.contains('active')?closeMenu():openMenu());
 dim.addEventListener('click',closeMenu);
@@ -190,56 +195,8 @@ function openMenu(){menuBtn.classList.add('active');sidebar.classList.add('open'
 function closeMenu(){menuBtn.classList.remove('active');sidebar.classList.remove('open');dim.classList.remove('show')}
 
 /* Reveal on scroll */
-const obs=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('active');o.unobserve(e.target)}}),{threshold:.15});
+const obs=new IntersectionObserver((entries,o)=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('active');o.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-/* ---------- Pong game ---------- */
-const btn=document.getElementById('pongBtn');
-const wrapper=document.getElementById('pongWrapper');
-btn.addEventListener('click',()=>{
-  btn.style.display='none';wrapper.style.display='block';
-  startPong();
-});
-function startPong(){
-  const canvas=document.getElementById('pongCanvas');
-  const ctx=canvas.getContext('2d');
-  const W=canvas.width, H=canvas.height;
-  let paddleW=80,paddleH=10,paddleX=(W-paddleW)/2;
-  let rightPressed=false,leftPressed=false;
-  let x=W/2,y=H/2,dx=3,dy=-3,ballR=6;
-  document.addEventListener('keydown',e=>{
-    if(e.key==='ArrowRight')rightPressed=true;
-    if(e.key==='ArrowLeft')leftPressed=true;
-  });
-  document.addEventListener('keyup',e=>{
-    if(e.key==='ArrowRight')rightPressed=false;
-    if(e.key==='ArrowLeft')leftPressed=false;
-  });
-  function drawPaddle(){
-    ctx.fillRect(paddleX,H-paddleH-4,paddleW,paddleH);
-  }
-  function drawBall(){
-    ctx.beginPath();ctx.arc(x,y,ballR,0,Math.PI*2);ctx.fill();ctx.closePath();
-  }
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    drawBall();drawPaddle();
-    if(x+dx>W-ballR||x+dx<ballR)dx=-dx;
-    if(y+dy<ballR)dy=-dy;
-    else if(y+dy>H-ballR-paddleH-4){
-      if(x>paddleX&&x<paddleX+paddleW)dy=-dy;
-      else if(y+dy>H-ballR){alert('Game Over');document.removeEventListener('keydown',()=>{});return;}
-    }
-    x+=dx;y+=dy;
-    if(rightPressed&&paddleX<W-paddleW)paddleX+=6;
-    if(leftPressed&&paddleX>0)paddleX-=6;
-    requestAnimationFrame(draw);
-  }
-  ctx.fillStyle=varCSS('--fg'); /* ensure white color */ 
-  function varCSS(v){return getComputedStyle(document.documentElement).getPropertyValue(v)}
-  ctx.fillStyle=varCSS('--fg')||'#fff';
-  draw();
-}
 </script>
 </body>
 </html>
