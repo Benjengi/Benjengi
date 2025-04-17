@@ -3,28 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Ben Smith | Portfolio</title>
+<title>Ben Smith | Portfolio</title>
 
-<!-- ─── CORE COLOURS & TYPO ──────────────────────────────────────────── -->
 <style>
 :root{
-  --bg:#000;            /* page background                           */
-  --fg:#f5f5f7;         /* primary text                               */
-  --accent:#3d8bfd;     /* blue accent (replace to taste)             */
-  --surface:#121212;    /* card backgrounds                           */
-  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+  --bg:#000;--fg:#f5f5f7;--accent:#3d8bfd;--surface:#121212;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;font-family:var(--sans);background:var(--bg);color:var(--fg);scroll-behavior:smooth}
 .container{max-width:900px;margin:0 auto;padding:4rem 2rem}
 section h2{font-size:2rem;margin-bottom:1.5rem;font-weight:600}
 
-/* ─── HERO ───────────────────────────────────────────────────────────── */
-#hero{
-  position:relative;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  height:100vh;text-align:center;overflow:hidden;
-}
+/* ── HERO (now plain black) ───────────────────────── */
+#hero{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;text-align:center}
 #hero h1{font-size:clamp(2.8rem,7vw,5rem);font-weight:700;letter-spacing:-.02em}
 #hero .tagline{margin-top:1rem;font-size:1.25rem;opacity:.85}
 nav{margin-top:2.2rem}
@@ -32,23 +24,7 @@ nav a{margin:0 .9rem;text-decoration:none;color:var(--fg);font-size:1rem;positio
 nav a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--accent);transition:width .3s}
 nav a:hover::after{width:100%}
 
-/* floating blurred blobs à la radnaabazar */
-#hero::before,#hero::after{
-  content:'';position:absolute;border-radius:50%;filter:blur(120px);opacity:.6;
-  animation:blob 18s ease-in-out infinite alternate;
-}
-#hero::before{width:480px;height:480px;top:-120px;left:-120px;background:var(--accent)}
-#hero::after {width:540px;height:540px;bottom:-160px;right:-160px;background:#6f7dff}
-
-/* blob drift */
-@keyframes blob{to{transform:translateY(-60px) translateX(60px)}}
-
-/* ─── ANIMATED GEAR LOGO ─────────────────────────────────────────────── */
-.logo{height:80px;margin-bottom:1.75rem}
-.logo svg{height:100%;width:auto;fill:var(--accent);animation:spin 25s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* ─── CIRCUIT‑LINE OVERLAY (subtler) ─────────────────────────────────── */
+/* subtle circuit‑line overlay (optional) */
 body::before{
   content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
@@ -58,18 +34,24 @@ body::before{
 }
 @keyframes lines{to{background-position:600px 0,-600px 0}}
 
-/* ─── HORIZONTAL "FLASH" CARDS ───────────────────────────────────────── */
+/* animated gear logo */
+.logo{height:80px;margin-bottom:1.75rem}
+.logo svg{height:100%;width:auto;fill:var(--accent);animation:spin 25s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* scroll‑reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .6s ease-out,transform .6s ease-out}
+.reveal.show{opacity:1;transform:none}
+
+/* skills track */
 .track{display:flex;gap:1.4rem;overflow-x:auto;padding-bottom:1rem;scroll-snap-type:x mandatory;scrollbar-width:none}
 .track::-webkit-scrollbar{display:none}
-.card{
-  flex:0 0 260px;background:var(--surface);border-radius:12px;padding:1.5rem;
-  scroll-snap-align:center;transition:transform .3s,box-shadow .3s;
-}
+.card{flex:0 0 260px;background:var(--surface);border-radius:12px;padding:1.5rem;scroll-snap-align:center;transition:transform .3s,box-shadow .3s}
 .card:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 10px 24px rgba(0,0,0,.55)}
 .card h3{font-size:1.15rem;margin-bottom:.6rem}
 .card p{font-size:.9rem;opacity:.8}
 
-/* ─── GITHUB PROJECT GRID ────────────────────────────────────────────── */
+/* repos */
 .repo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem}
 .repo{background:var(--surface);padding:1.5rem;border-radius:12px;transition:transform .3s,box-shadow .3s}
 .repo:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,.55)}
@@ -82,16 +64,14 @@ footer{text-align:center;padding:2.5rem .5rem;font-size:.8rem;opacity:.6}
 </head>
 <body>
 
-<!-- ─── HERO ─────────────────────────────────────────────────────────── -->
+<!-- ── HERO ──────────────────────────────────────── -->
 <header id="hero">
   <div class="logo">
-    <!-- simple gear (24‑tooth) inside a ring -->
     <svg viewBox="0 0 100 100" aria-label="Gear logo">
       <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="4"/>
       <path d="M50 33a17 17 0 1 0 0 34 17 17 0 0 0 0-34Zm-27 18 5 3a30 30 0 0 0 0 4l-5 3 5 9 5-2a30 30 0 0 0 3 3l-2 5 9 5 3-5a30 30 0 0 0 4 0l3 5 9-5-2-5a30 30 0 0 0 3-3l5 2 5-9-5-3a30 30 0 0 0 0-4l5-3-5-9-5 2a30 30 0 0 0-3-3l2-5-9-5-3 5a30 30 0 0 0-4 0l-3-5-9 5 2 5a30 30 0 0 0-3 3l-5-2-5 9Z" fill="currentColor"/>
     </svg>
   </div>
-
   <h1>Ben Smith</h1>
   <p class="tagline">MEng Masters student</p>
 
@@ -103,72 +83,81 @@ footer{text-align:center;padding:2.5rem .5rem;font-size:.8rem;opacity:.6}
   </nav>
 </header>
 
-<!-- ─── ABOUT ────────────────────────────────────────────────────────── -->
-<section id="about" class="container">
+<!-- ── ABOUT ─────────────────────────────────────── -->
+<section id="about" class="container reveal">
   <h2>About</h2>
   <p>Mechanical Engineering master student with a broad interest in physics, technology, and mathematics.</p>
 </section>
 
-<!-- ─── HORIZONTAL SKILLS / FLASH TRACK ──────────────────────────────── -->
-<section id="skills" class="container">
+<!-- ── SKILLS (flash cards) ──────────────────────── -->
+<section id="skills" class="container reveal">
   <h2>Key Skills</h2>
   <div class="track" id="skillTrack"></div>
 </section>
 
-<!-- ─── PROJECTS (from GitHub API) ────────────────────────────────────── -->
-<section id="projects" class="container">
+<!-- ── PROJECTS ──────────────────────────────────── -->
+<section id="projects" class="container reveal">
   <h2>Projects</h2>
   <div class="repo-grid" id="repoGrid"></div>
 </section>
 
-<!-- ─── CONTACT ──────────────────────────────────────────────────────── -->
-<section id="contact" class="container">
+<!-- ── CONTACT ───────────────────────────────────── -->
+<section id="contact" class="container reveal">
   <h2>Contact</h2>
   <p>Email: <a href="mailto:you@example.com">you@example.com</a></p>
   <p>GitHub: <a href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank">github.com/YOUR_GITHUB_USERNAME</a></p>
 </section>
 
-<footer>
-  <p>&copy; <span id="year"></span> Ben Smith. All rights reserved.</p>
-</footer>
+<footer class="reveal"><p>&copy; <span id="year"></span> Ben Smith. All rights reserved.</p></footer>
 
-<!-- ─── MINIMAL JS ───────────────────────────────────────────────────── -->
+<!-- ── JS ────────────────────────────────────────── -->
 <script>
-/* ---------- populate skills “flash” cards ---------- */
-const skills = [
+/* scroll‑reveal intersection observer */
+const observer = new IntersectionObserver((entries,obs)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('show');
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:0.15});
+function observeReveals(){document.querySelectorAll('.reveal:not(.show)').forEach(el=>observer.observe(el));}
+observeReveals();
+
+/* skills cards */
+const skills=[
   {t:'Fluid Dynamics',d:'CFD & turbulence modelling'},
   {t:'Robotics',d:'End‑effector design & control'},
   {t:'Numerical Methods',d:'Finite‑element & multibody sims'},
-  {t:'Machine Vision',d:'Inspection pipelines with OpenCV'},
-  {t:'PCB Design',d:'4‑layer high‑speed boards in KiCad'}
+  {t:'Machine Vision',d:'Inspection pipelines with OpenCV'},
+  {t:'PCB Design',d:'4‑layer high‑speed boards in KiCad'}
 ];
-const track = document.getElementById('skillTrack');
+const track=document.getElementById('skillTrack');
 skills.forEach(s=>track.insertAdjacentHTML('beforeend',`
-  <div class="card">
-    <h3>${s.t}</h3><p>${s.d}</p>
-  </div>
+  <div class="card reveal"><h3>${s.t}</h3><p>${s.d}</p></div>
 `));
+observeReveals(); /* watch the newly inserted cards */
 
-/* ---------- fetch latest GitHub repos ---------- */
-const username = 'YOUR_GITHUB_USERNAME';  // change me
-const maxRepos = 6;
+/* GitHub repos */
+const username='YOUR_GITHUB_USERNAME'; const maxRepos=6;
 async function loadRepos(){
   try{
-    const r = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=${maxRepos}`);
-    const data = await r.json();
-    const grid = document.getElementById('repoGrid');
+    const r=await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=${maxRepos}`);
+    const data=await r.json();
+    const grid=document.getElementById('repoGrid');
     data.forEach(repo=>{
       grid.insertAdjacentHTML('beforeend',`
-        <div class="repo">
+        <div class="repo reveal">
           <h3>${repo.name}</h3>
           <p>${repo.description??''}</p>
           <a href="${repo.html_url}" target="_blank">View on GitHub →</a>
         </div>
       `);
     });
+    observeReveals(); /* watch the newly injected repos */
   }catch(e){console.error(e);}
 }
-document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById('year').textContent=new Date().getFullYear();
 loadRepos();
 </script>
 </body>
