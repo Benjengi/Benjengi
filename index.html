@@ -15,16 +15,35 @@ html,body{height:100%;font-family:var(--sans);background:var(--bg);color:var(--f
 .container{max-width:900px;margin:0 auto;padding:4rem 2rem}
 section h2{font-size:2rem;margin-bottom:1.5rem;font-weight:600}
 
-/* ── HERO (now plain black) ───────────────────────── */
+/* ── fixed menu icon ─────────────────────────────── */
+.menu-btn{
+  position:fixed;top:1.5rem;right:1.5rem;z-index:1000;
+  width:34px;height:26px;display:flex;flex-direction:column;justify-content:space-between;
+  cursor:pointer;transition:transform .25s;
+}
+.menu-btn span{
+  display:block;height:4px;border-radius:2px;background:var(--accent);transition:width .25s;
+}
+.menu-btn:hover{transform:scale(1.15) rotate(5deg)}
+.menu-btn:hover span:nth-child(2){width:70%}
+
+/* ── HERO ────────────────────────────────────────── */
 #hero{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;text-align:center}
-#hero h1{font-size:clamp(2.8rem,7vw,5rem);font-weight:700;letter-spacing:-.02em}
+#hero h1{font-size:clamp(3rem,7vw,5.5rem);font-weight:700;letter-spacing:-.02em}
 #hero .tagline{margin-top:1rem;font-size:1.25rem;opacity:.85}
+
+/* gear logo (cog only, no outer ring) */
+.logo{height:160px;margin-bottom:2rem}
+.logo svg{height:100%;width:auto;fill:var(--accent);animation:spin 25s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* nav */
 nav{margin-top:2.2rem}
 nav a{margin:0 .9rem;text-decoration:none;color:var(--fg);font-size:1rem;position:relative}
 nav a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--accent);transition:width .3s}
 nav a:hover::after{width:100%}
 
-/* subtle circuit‑line overlay (optional) */
+/* circuit overlay (optional) */
 body::before{
   content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
@@ -33,11 +52,6 @@ body::before{
   animation:lines 40s linear infinite;
 }
 @keyframes lines{to{background-position:600px 0,-600px 0}}
-
-/* animated gear logo */
-.logo{height:80px;margin-bottom:1.75rem}
-.logo svg{height:100%;width:auto;fill:var(--accent);animation:spin 25s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
 
 /* scroll‑reveal */
 .reveal{opacity:0;transform:translateY(40px);transition:opacity .6s ease-out,transform .6s ease-out}
@@ -64,16 +78,21 @@ footer{text-align:center;padding:2.5rem .5rem;font-size:.8rem;opacity:.6}
 </head>
 <body>
 
+<!-- fixed menu icon (purely visual) -->
+<div class="menu-btn" aria-label="Menu">
+  <span></span><span></span><span></span>
+</div>
+
 <!-- ── HERO ──────────────────────────────────────── -->
 <header id="hero">
   <div class="logo">
+    <!-- 24‑tooth cog only -->
     <svg viewBox="0 0 100 100" aria-label="Gear logo">
-      <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="4"/>
       <path d="M50 33a17 17 0 1 0 0 34 17 17 0 0 0 0-34Zm-27 18 5 3a30 30 0 0 0 0 4l-5 3 5 9 5-2a30 30 0 0 0 3 3l-2 5 9 5 3-5a30 30 0 0 0 4 0l3 5 9-5-2-5a30 30 0 0 0 3-3l5 2 5-9-5-3a30 30 0 0 0 0-4l5-3-5-9-5 2a30 30 0 0 0-3-3l2-5-9-5-3 5a30 30 0 0 0-4 0l-3-5-9 5 2 5a30 30 0 0 0-3 3l-5-2-5 9Z" fill="currentColor"/>
     </svg>
   </div>
   <h1>Ben Smith</h1>
-  <p class="tagline">MEng Masters student</p>
+  <p class="tagline">Mechanical MEng Student</p>
 
   <nav>
     <a href="#about">About</a>
@@ -86,10 +105,18 @@ footer{text-align:center;padding:2.5rem .5rem;font-size:.8rem;opacity:.6}
 <!-- ── ABOUT ─────────────────────────────────────── -->
 <section id="about" class="container reveal">
   <h2>About</h2>
-  <p>Mechanical Engineering master student with a broad interest in physics, technology, and mathematics.</p>
+  <p>
+    I design, build and iterate at speed. During my Mechanical MEng I’ve optimised turbomachinery in
+    <abbr title="Computational Fluid Dynamics">CFD</abbr>, developed embedded control
+    loops for autonomous robots, and led a five‑person team that delivered a fully‑instrumented test rig from
+    concept to commissioning in under eight weeks.
+    My strength is translating first‑principles analysis into manufacturable hardware—communicating clearly with
+    machinists, software engineers and clients alike. I’m looking to bring that blend of analytical rigour and
+    hands‑on pragmatism to a forward‑thinking engineering team.
+  </p>
 </section>
 
-<!-- ── SKILLS (flash cards) ──────────────────────── -->
+<!-- ── SKILLS ────────────────────────────────────── -->
 <section id="skills" class="container reveal">
   <h2>Key Skills</h2>
   <div class="track" id="skillTrack"></div>
@@ -112,31 +139,24 @@ footer{text-align:center;padding:2.5rem .5rem;font-size:.8rem;opacity:.6}
 
 <!-- ── JS ────────────────────────────────────────── -->
 <script>
-/* scroll‑reveal intersection observer */
-const observer = new IntersectionObserver((entries,obs)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('show');
-      obs.unobserve(e.target);
-    }
-  });
+/* scroll‑reveal */
+const observer=new IntersectionObserver((entries,obs)=>{
+ entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');obs.unobserve(e.target);}});
 },{threshold:0.15});
-function observeReveals(){document.querySelectorAll('.reveal:not(.show)').forEach(el=>observer.observe(el));}
-observeReveals();
+function watch(){document.querySelectorAll('.reveal:not(.show)').forEach(el=>observer.observe(el));}
+watch();
 
 /* skills cards */
 const skills=[
-  {t:'Fluid Dynamics',d:'CFD & turbulence modelling'},
-  {t:'Robotics',d:'End‑effector design & control'},
-  {t:'Numerical Methods',d:'Finite‑element & multibody sims'},
-  {t:'Machine Vision',d:'Inspection pipelines with OpenCV'},
-  {t:'PCB Design',d:'4‑layer high‑speed boards in KiCad'}
+ {t:'Fluid Dynamics',d:'CFD & turbulence modelling'},
+ {t:'Robotics',d:'End‑effector design & control'},
+ {t:'Numerical Methods',d:'Finite‑element & multibody sims'},
+ {t:'Machine Vision',d:'Inspection pipelines with OpenCV'},
+ {t:'PCB Design',d:'4‑layer high‑speed boards in KiCad'}
 ];
 const track=document.getElementById('skillTrack');
-skills.forEach(s=>track.insertAdjacentHTML('beforeend',`
-  <div class="card reveal"><h3>${s.t}</h3><p>${s.d}</p></div>
-`));
-observeReveals(); /* watch the newly inserted cards */
+skills.forEach(s=>track.insertAdjacentHTML('beforeend',`<div class="card reveal"><h3>${s.t}</h3><p>${s.d}</p></div>`));
+watch();
 
 /* GitHub repos */
 const username='YOUR_GITHUB_USERNAME'; const maxRepos=6;
@@ -154,7 +174,7 @@ async function loadRepos(){
         </div>
       `);
     });
-    observeReveals(); /* watch the newly injected repos */
+    watch();
   }catch(e){console.error(e);}
 }
 document.getElementById('year').textContent=new Date().getFullYear();
