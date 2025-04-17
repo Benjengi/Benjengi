@@ -5,15 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Ben Smith — Mechanical MEng Student</title>
 
-<!-- ---------- Base Fonts & Loader (unchanged) ---------- -->
+<!-- ---------- Base Fonts & Loader ---------- -->
 <style>
-@font-face{font-family:"SF Pro";src:local("SF Pro Display"),local("San Francisco Pro"),
-           local("SF Pro Text"),local("-apple-system");}
-:root{--bg:#000;--fg:#fff;--accent:#1e1e1e;--border:#444;
-      --font:"SF Pro",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;}
+@font-face{
+  font-family:"SF Pro";
+  src:local("SF Pro Display"),local("San Francisco Pro"),
+      local("SF Pro Text"),local("-apple-system");
+}
+:root{
+  --bg:#000;--fg:#fff;--accent:#1e1e1e;--border:#444;
+  --font:"SF Pro",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--fg);font-family:var(--font);
-     line-height:1.6;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:var(--fg);text-decoration:none}
 html{scroll-behavior:smooth}
 
@@ -30,17 +34,18 @@ body.loading{overflow:hidden}
 
 <!-- ---------- Site Styles ---------- -->
 <style>
+/* Header */
 header{padding:4rem 1rem 2.5rem;text-align:center}
 header h1{font-family:Arial,sans-serif;font-size:2.8rem;font-weight:600;margin:1.5rem 0 .2rem}
 header p{font-size:1.2rem;opacity:.8}
 .logo{width:90px;fill:#fff;transition:transform .8s cubic-bezier(.68,-.55,.27,1.55)}
 .logo:hover{transform:rotate(200deg)}
 
-/* ---------- NEW slimmer two‑bar menu ---------- */
+/* Menu button (2‑bar) */
 .menu-btn{
-  position:fixed;top:18px;right:20px;width:32px;height:18px;   /* shorter */
+  position:fixed;top:18px;right:20px;width:32px;height:18px;
   display:flex;flex-direction:column;justify-content:space-between;
-  background:transparent;border:0;cursor:pointer;z-index:1001;
+  background:transparent;border:0;cursor:pointer;z-index:1001
 }
 .bar{height:2px;background:#fff;border-radius:2px;transition:transform .3s,width .3s;margin:0}
 .bar1{width:100%}
@@ -48,7 +53,7 @@ header p{font-size:1.2rem;opacity:.8}
 .menu-btn.active .bar1{transform:translateY(3px) rotate(45deg)}
 .menu-btn.active .bar2{transform:translateY(-3px) rotate(-45deg);width:100%;margin-left:0}
 
-/* Sidebar & dimmer (unchanged) */
+/* Sidebar & Dimmer */
 nav{position:fixed;top:0;right:-100%;width:70%;max-width:280px;height:100%;
      background:var(--accent);padding:5rem 2rem;transition:right .35s ease;z-index:1000}
 nav.open{right:0}
@@ -59,10 +64,12 @@ nav li a:hover{opacity:.7}
      opacity:0;pointer-events:none;transition:opacity .3s;z-index:900}
 #dim.show{opacity:1;pointer-events:auto}
 
-/* Sections, carousels, contact icons (unchanged) */
+/* Sections */
 section{max-width:900px;margin:0 auto;padding:2rem 1rem 3rem}
 section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--border);
            padding-bottom:.4rem;font-weight:600}
+
+/* Carousel */
 .card-carousel{display:flex;gap:1.2rem;overflow-x:auto;padding-bottom:.3rem;margin-top:1.2rem;
                scroll-snap-type:x mandatory;overscroll-behavior-x:contain}
 .card-carousel::-webkit-scrollbar{display:none}
@@ -70,12 +77,17 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
       background:#111;position:relative;scroll-snap-align:center}
 .card h3{position:absolute;top:33%;left:1rem;transform:translateY(-50%);
          font-size:1.45rem;font-weight:600;line-height:1.25;max-width:90%}
+
+/* Contact Icons */
 .social-links{display:flex;justify-content:center;gap:1.5rem;margin-top:1rem}
 .social-links a{width:36px;height:36px;color:#fff}
 .social-links svg{width:100%;height:100%;stroke:currentColor;stroke-width:2;fill:none;
                   stroke-linecap:round;stroke-linejoin:round}
+
+/* Reveal */
 .reveal{opacity:0;transition:opacity .75s ease-out}
 .reveal.active{opacity:1}
+
 @media(min-width:600px){nav a{font-size:1.1rem}}
 </style>
 </head>
@@ -84,16 +96,14 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
 <!-- ---------- Loader ---------- -->
 <div id="loader"><div class="bar-frame"><div class="bar-progress"></div></div></div>
 
-<!-- ---------- Dimmer ---------- -->
 <div id="dim"></div>
 
 <!-- ---------- Menu Button ---------- -->
 <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">
-  <span class="bar bar1"></span>
-  <span class="bar bar2"></span>
+  <span class="bar bar1"></span><span class="bar bar2"></span>
 </button>
 
-<!-- ---------- Sidebar Navigation ---------- -->
+<!-- ---------- Sidebar ---------- -->
 <nav id="sidebar">
   <ul>
     <li><a href="#home" onclick="closeMenu()">Home</a></li>
@@ -123,7 +133,7 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
   </p>
 </section>
 
-<!-- ---------- Portfolio Carousel ---------- -->
+<!-- ---------- Portfolio ---------- -->
 <section id="portfolio">
   <h2 class="reveal">Portfolio</h2>
   <div class="card-carousel">
@@ -134,7 +144,7 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
   </div>
 </section>
 
-<!-- ---------- Skills Carousel ---------- -->
+<!-- ---------- Skills ---------- -->
 <section id="skills">
   <h2 class="reveal">Skills</h2>
   <div class="card-carousel">
@@ -150,17 +160,18 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
 <section id="contact">
   <h2 class="reveal">Contact</h2>
   <div class="social-links reveal">
+    <!-- Email Icon -->
     <a href="mailto:ben_smith_224@yahoo.com" aria-label="Email Ben Smith">
       <svg viewBox="0 0 24 24">
         <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
         <polyline points="2,6 12,13 22,6"/>
       </svg>
     </a>
+    <!-- Instagram Icon (outline, no corner dot) -->
     <a href="https://www.instagram.com/astromechig" target="_blank" aria-label="Instagram profile">
       <svg viewBox="0 0 24 24">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
         <circle cx="12" cy="12" r="4"/>
-        <circle cx="18" cy="6" r="1.5"/>
       </svg>
     </a>
   </div>
@@ -175,7 +186,9 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 /* Menu & Dimmer */
-const menuBtn=document.getElementById('menuBtn'),sidebar=document.getElementById('sidebar'),dim=document.getElementById('dim');
+const menuBtn=document.getElementById('menuBtn'),
+      sidebar=document.getElementById('sidebar'),
+      dim=document.getElementById('dim');
 menuBtn.addEventListener('click',()=>menuBtn.classList.contains('active')?closeMenu():openMenu());
 dim.addEventListener('click',closeMenu);
 function openMenu(){menuBtn.classList.add('active');sidebar.classList.add('open');dim.classList.add('show')}
