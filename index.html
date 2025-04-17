@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Ben Smith — Mechanical MEng Student</title>
+<title>Ben Smith — Mechanical MEng Student</title>
 
 <!-- ---------- San Francisco Pro (system) ---------- -->
 <style>
@@ -24,15 +24,15 @@ html{scroll-behavior:smooth}
 
 <!-- ---------- Layout & Components ---------- -->
 <style>
-/* Header */
+/* Header (centered again) */
 header{
   padding:4rem 1rem 2.5rem;
-  text-align:left;                /* now left‑aligned */
+  text-align:center;
 }
 header h1{font-size:2.8rem;font-weight:600;margin:1.5rem 0 .2rem}
 header p{font-size:1.2rem;opacity:.8;margin:0}
 
-/* Cog logo stays above text, flush left */
+/* Cog logo */
 .logo{width:90px;fill:#fff;transition:transform .8s cubic-bezier(.68,-.55,.27,1.55)}
 .logo:hover{transform:rotate(200deg)}
 
@@ -77,15 +77,14 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
 .card{
   flex:0 0 240px;height:320px;position:relative;
   border:1px solid var(--border);border-radius:16px;overflow:hidden;
-  background-size:cover;background-position:center;
+  background:#111;                     /* plain black */
   scroll-snap-align:center;
 }
-/* two‑line text, left‑aligned 1/3 down */
+/* text left, 1/3 down; unify font‑size 1.45 rem across ALL cards */
 .card h3{
   position:absolute;top:33%;left:1rem;transform:translateY(-50%);
   font-size:1.45rem;font-weight:600;line-height:1.25;text-align:left;z-index:1;
-  max-width:90%;word-break:break-word;
-  text-shadow:0 0 4px rgba(0,0,0,.6);   /* keep readable on bright pics */
+  max-width:90%;word-break:break-word;text-shadow:none;
 }
 
 /* ---------- Appear‑on‑scroll (non‑card content) ---------- */
@@ -122,7 +121,7 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
     <path d="M94 56v-12l-8-2c-1-4-2-7-4-11l5-6-9-9-6 5c-4-2-7-3-11-4l-2-8H44l-2 8c-4 1-7 2-11 4l-6-5-9 9 5 6c-2 4-3 7-4 11l-8 2v12l8 2c1 4 2 7 4 11l-5 6 9 9 6-5c4 2 7 3 11 4l2 8h12l2-8c4-1 7-2 11-4l6 5 9-9-5-6c2-4 3-7 4-11l8-2Zm-44 9a15 15 0 1 1 0-30 15 15 0 0 1 0 30Z"/>
   </svg>
   <h1 class="reveal">Ben Smith</h1>
-  <p class="reveal">Mechanical MEng Student</p>
+  <p class="reveal">Mechanical MEng Student</p>
 </header>
 
 <!-- ---------- About ---------- -->
@@ -140,18 +139,10 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
   <h2 class="reveal">Portfolio</h2>
 
   <div class="card-carousel">
-    <div class="card" style="background-image:url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=60')">
-      <h3>Coming<br>Soon</h3>
-    </div>
-    <div class="card" style="background-image:url('https://images.unsplash.com/photo-1464802686167-b939a6910659?auto=format&fit=crop&w=800&q=60')">
-      <h3>Coming<br>Soon</h3>
-    </div>
-    <div class="card" style="background-image:url('https://images.unsplash.com/photo-1488229297570-58520851e868?auto=format&fit=crop&w=800&q=60')">
-      <h3>Coming<br>Soon</h3>
-    </div>
-    <div class="card" style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=60')">
-      <h3>Coming<br>Soon</h3>
-    </div>
+    <div class="card"><h3>Coming<br>Soon</h3></div>
+    <div class="card"><h3>Coming<br>Soon</h3></div>
+    <div class="card"><h3>Coming<br>Soon</h3></div>
+    <div class="card"><h3>Coming<br>Soon</h3></div>
   </div>
 </section>
 
@@ -160,21 +151,11 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
   <h2 class="reveal">Skills</h2>
 
   <div class="card-carousel">
-    <div class="card" style="background-image:url('https://images.unsplash.com/photo-1581091012184-7e0abd38930e?auto=format&fit=crop&w=800&q=60')">
-      <h3>CAD<br>(SolidWorks)</h3>
-    </div>
-    <div class="card" style="background-image:url('https://images.unsplash.com/photo-1535930749574-1399327ce78f?auto=format&fit=crop&w=800&q=60')">
-      <h3>Advanced<br>Maths</h3>
-    </div>
-    <div class="card" style="background-image:url('https://images.unsplash.com/photo-1517365830460-955ce3ccd263?auto=format&fit=crop&w=800&q=60')">
-      <h3>CNC<br>Manufacturing</h3>
-    </div>
-    <div class="card" style="background-image:url('https://images.unsplash.com/photo-1519331379826-bdfa2dbf32f6?auto=format&fit=crop&w=800&q=60')">
-      <h3>Technical<br>Reports</h3>
-    </div>
-    <div class="card" style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=60')">
-      <h3>Electronics<br>(Arduino)</h3>
-    </div>
+    <div class="card"><h3>CAD<br>(SolidWorks)</h3></div>
+    <div class="card"><h3>Advanced<br>Maths</h3></div>
+    <div class="card"><h3>CNC<br>Manufacturing</h3></div>
+    <div class="card"><h3>Technical<br>Reports</h3></div>
+    <div class="card"><h3>Electronics<br>(Arduino)</h3></div>
   </div>
 </section>
 
