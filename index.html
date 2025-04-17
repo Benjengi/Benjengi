@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Ben Smith | Portfolio</title>
+<title>Ben Smith | Portfolio</title>
 
 <style>
 :root{
@@ -15,35 +15,44 @@ html,body{height:100%;font-family:var(--sans);background:var(--bg);color:var(--f
 .container{max-width:900px;margin:0 auto;padding:4rem 2rem}
 section h2{font-size:2rem;margin-bottom:1.5rem;font-weight:600}
 
-/* ── fixed menu icon ─────────────────────────────── */
+/* ── fixed hamburger ─────────────────────────────── */
 .menu-btn{
-  position:fixed;top:1.5rem;right:1.5rem;z-index:1000;
-  width:34px;height:26px;display:flex;flex-direction:column;justify-content:space-between;
+  position:fixed;top:1.5rem;right:1.5rem;z-index:1001;
+  width:38px;height:30px;display:flex;flex-direction:column;justify-content:space-between;
   cursor:pointer;transition:transform .25s;
 }
 .menu-btn span{
-  display:block;height:4px;border-radius:2px;background:var(--accent);transition:width .25s;
+  display:block;height:4px;border-radius:2px;background:var(--fg);transition:width .25s;
 }
 .menu-btn:hover{transform:scale(1.15) rotate(5deg)}
 .menu-btn:hover span:nth-child(2){width:70%}
 
+/* ── overlay nav ─────────────────────────────────── */
+#menuOverlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.94);display:flex;
+  flex-direction:column;align-items:center;justify-content:center;gap:2.4rem;
+  transform:translateX(100%);transition:transform .35s ease;z-index:1000;
+}
+#menuOverlay.open{transform:none}
+#menuOverlay a{color:var(--fg);font-size:2rem;text-decoration:none;letter-spacing:.02em}
+
 /* ── HERO ────────────────────────────────────────── */
 #hero{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;text-align:center}
-#hero h1{font-size:clamp(3rem,7vw,5.5rem);font-weight:700;letter-spacing:-.02em}
+#hero h1{font-size:clamp(3.2rem,7vw,5.8rem);font-weight:700;letter-spacing:-.02em}
 #hero .tagline{margin-top:1rem;font-size:1.25rem;opacity:.85}
 
-/* gear logo (cog only, no outer ring) */
-.logo{height:160px;margin-bottom:2rem}
-.logo svg{height:100%;width:auto;fill:var(--accent);animation:spin 25s linear infinite}
+/* cog logo – 320 px, unclipped */
+.logo{height:320px;margin-bottom:2.2rem}
+.logo svg{height:100%;width:auto;fill:var(--accent);animation:spin 25s linear infinite;transform-origin:center}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* nav */
+/* nav under hero (desktop) */
 nav{margin-top:2.2rem}
 nav a{margin:0 .9rem;text-decoration:none;color:var(--fg);font-size:1rem;position:relative}
 nav a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--accent);transition:width .3s}
 nav a:hover::after{width:100%}
 
-/* circuit overlay (optional) */
+/* circuit overlay (subtle) */
 body::before{
   content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
@@ -78,17 +87,24 @@ footer{text-align:center;padding:2.5rem .5rem;font-size:.8rem;opacity:.6}
 </head>
 <body>
 
-<!-- fixed menu icon (purely visual) -->
-<div class="menu-btn" aria-label="Menu">
+<!-- ── Hamburger & overlay nav ───────────────────── -->
+<div class="menu-btn" id="menuBtn" aria-label="Menu">
   <span></span><span></span><span></span>
+</div>
+<div id="menuOverlay">
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
 </div>
 
 <!-- ── HERO ──────────────────────────────────────── -->
 <header id="hero">
   <div class="logo">
-    <!-- 24‑tooth cog only -->
     <svg viewBox="0 0 100 100" aria-label="Gear logo">
-      <path d="M50 33a17 17 0 1 0 0 34 17 17 0 0 0 0-34Zm-27 18 5 3a30 30 0 0 0 0 4l-5 3 5 9 5-2a30 30 0 0 0 3 3l-2 5 9 5 3-5a30 30 0 0 0 4 0l3 5 9-5-2-5a30 30 0 0 0 3-3l5 2 5-9-5-3a30 30 0 0 0 0-4l5-3-5-9-5 2a30 30 0 0 0-3-3l2-5-9-5-3 5a30 30 0 0 0-4 0l-3-5-9 5 2 5a30 30 0 0 0-3 3l-5-2-5 9Z" fill="currentColor"/>
+      <g transform="scale(0.9) translate(5 5)">
+        <path d="M50 33a17 17 0 1 0 0 34 17 17 0 0 0 0-34Zm-27 18 5 3a30 30 0 0 0 0 4l-5 3 5 9 5-2a30 30 0 0 0 3 3l-2 5 9 5 3-5a30 30 0 0 0 4 0l3 5 9-5-2-5a30 30 0 0 0 3-3l5 2 5-9-5-3a30 30 0 0 0 0-4l5-3-5-9-5 2a30 30 0 0 0-3-3l2-5-9-5-3 5a30 30 0 0 0-4 0l-3-5-9 5 2 5a30 30 0 0 0-3 3l-5-2-5 9Z" fill="currentColor"/>
+      </g>
     </svg>
   </div>
   <h1>Ben Smith</h1>
@@ -106,13 +122,12 @@ footer{text-align:center;padding:2.5rem .5rem;font-size:.8rem;opacity:.6}
 <section id="about" class="container reveal">
   <h2>About</h2>
   <p>
-    I design, build and iterate at speed. During my Mechanical MEng I’ve optimised turbomachinery in
-    <abbr title="Computational Fluid Dynamics">CFD</abbr>, developed embedded control
-    loops for autonomous robots, and led a five‑person team that delivered a fully‑instrumented test rig from
-    concept to commissioning in under eight weeks.
-    My strength is translating first‑principles analysis into manufacturable hardware—communicating clearly with
-    machinists, software engineers and clients alike. I’m looking to bring that blend of analytical rigour and
-    hands‑on pragmatism to a forward‑thinking engineering team.
+    I design, build and iterate at speed. During my Mechanical MEng I’ve optimised turbomachinery in
+    <abbr title="Computational Fluid Dynamics">CFD</abbr>, developed embedded control loops for autonomous robots,
+    and led a five‑person team that delivered a fully‑instrumented test rig from concept to commissioning in
+    under eight weeks. My strength is translating first‑principles analysis into manufacturable hardware—
+    communicating clearly with machinists, software engineers and clients alike. I’m eager to bring that
+    blend of analytical rigour and hands‑on pragmatism to a forward‑thinking engineering team.
   </p>
 </section>
 
@@ -139,11 +154,17 @@ footer{text-align:center;padding:2.5rem .5rem;font-size:.8rem;opacity:.6}
 
 <!-- ── JS ────────────────────────────────────────── -->
 <script>
+/* hamburger toggle */
+const menuBtn=document.getElementById('menuBtn');
+const overlay=document.getElementById('menuOverlay');
+menuBtn.addEventListener('click',()=>overlay.classList.toggle('open'));
+overlay.addEventListener('click',e=>{
+  if(e.target===overlay || e.target.tagName==='A') overlay.classList.remove('open');
+});
+
 /* scroll‑reveal */
-const observer=new IntersectionObserver((entries,obs)=>{
- entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');obs.unobserve(e.target);}});
-},{threshold:0.15});
-function watch(){document.querySelectorAll('.reveal:not(.show)').forEach(el=>observer.observe(el));}
+const obs=new IntersectionObserver((entries,o)=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');o.unobserve(e.target);}}),{threshold:.15});
+function watch(){document.querySelectorAll('.reveal:not(.show)').forEach(el=>obs.observe(el));}
 watch();
 
 /* skills cards */
