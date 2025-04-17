@@ -13,159 +13,110 @@
        local("SF Pro Text"), local("-apple-system");
 }
 :root {
-  --bg: #000;
-  --fg: #fff;
-  --accent: #1e1e1e;
-  --border: #444;
-  --font: "SF Pro", -apple-system, BlinkMacSystemFont,
-          "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --bg:#000; --fg:#fff; --accent:#1e1e1e; --border:#444;
+  --font:"SF Pro",-apple-system,BlinkMacSystemFont,
+         "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-* { box-sizing: border-box; margin: 0; padding: 0 }
-body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: var(--font);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-a { color: var(--fg); text-decoration: none }
-html { scroll-behavior: smooth }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);
+     line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--fg);text-decoration:none}
+html{scroll-behavior:smooth}
 
-/* ---------- Full‑screen Loader ---------- */
-body.loading { overflow: hidden }
-#loader {
-  position: fixed; inset: 0; background: var(--bg);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 2000;
-  opacity: 1; transition: opacity .6s ease-out, visibility 0s .6s;
+/* ---------- Loader ---------- */
+body.loading{overflow:hidden}
+#loader{
+  position:fixed;inset:0;background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  z-index:2000;opacity:1;transition:opacity .6s ease-out,visibility 0s .6s;
 }
-#loader.fade { opacity: 0; visibility: hidden }
-.bar-frame {
-  width: 35%; max-width: 400px; height: 6px;
-  border: 1px solid var(--border);
-}
-.bar-progress {
-  height: 100%; background: var(--fg); width: 0;
-  animation: grow 3s linear forwards;
-}
-@keyframes grow { to { width: 100% } }
+#loader.fade{opacity:0;visibility:hidden}
+.bar-frame{width:35%;max-width:400px;height:6px;border:1px solid var(--border)}
+.bar-progress{height:100%;background:var(--fg);width:0;animation:grow 3s linear forwards}
+@keyframes grow{to{width:100%}}
 </style>
 
 <!-- ---------- Site Styles ---------- -->
 <style>
 /* Header */
-header { padding: 4rem 1rem 2.5rem; text-align: center }
-header h1 {
-  font-family: Arial, sans-serif;
-  font-size: 2.8rem;
-  font-weight: 600;
-  margin: 1.5rem 0 .2rem;
-}
-header p { font-size: 1.2rem; opacity: .8 }
+header{padding:4rem 1rem 2.5rem;text-align:center}
+header h1{font-family:Arial,sans-serif;font-size:2.8rem;font-weight:600;margin:1.5rem 0 .2rem}
+header p{font-size:1.2rem;opacity:.8}
 
 /* Cog logo */
-.logo {
-  width: 90px; fill: #fff;
-  transition: transform .8s cubic-bezier(.68,-.55,.27,1.55);
-}
-.logo:hover { transform: rotate(200deg) }
+.logo{width:90px;fill:#fff;transition:transform .8s cubic-bezier(.68,-.55,.27,1.55)}
+.logo:hover{transform:rotate(200deg)}
 
-/* Menu & Dimmer */
-.menu-btn {
-  position: fixed; top: 18px; right: 20px; width: 32px; height: 26px;
-  display: flex; flex-direction: column; justify-content: space-between;
-  background: transparent; border: 0; cursor: pointer; z-index: 1001;
+/* ---------- Menu button (2‑bar) & Dimmer ---------- */
+.menu-btn{
+  position:fixed;top:18px;right:20px;width:32px;height:26px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  background:transparent;border:0;cursor:pointer;z-index:1001
 }
-.bar {
-  width: 100%; height: 3px; background: #fff; border-radius: 2px;
-  transition: transform .3s, opacity .2s;
-}
-.menu-btn.active .bar:nth-child(1) { transform: translateY(11px) rotate(45deg) }
-.menu-btn.active .bar:nth-child(2) { opacity: 0 }
-.menu-btn.active .bar:nth-child(3) { transform: translateY(-11px) rotate(-45deg) }
+.bar{height:3px;background:#fff;border-radius:2px;transition:transform .3s,opacity .2s,width .3s;margin:0}
+.bar1{width:100%}
+.bar2{width:70%;margin-left:auto}
+.menu-btn.active .bar1{transform:translateY(4px) rotate(45deg)}
+.menu-btn.active .bar2{transform:translateY(-4px) rotate(-45deg);width:100%;margin-left:0}
 
-nav {
-  position: fixed; top: 0; right: -100%;
-  width: 70%; max-width: 280px; height: 100%;
-  background: var(--accent); padding: 5rem 2rem;
-  transition: right .35s ease; z-index: 1000;
+nav{
+  position:fixed;top:0;right:-100%;width:70%;max-width:280px;height:100%;
+  background:var(--accent);padding:5rem 2rem;transition:right .35s ease;z-index:1000
 }
-nav.open { right: 0 }
-nav ul { list-style: none }
-nav li { margin: 1.8rem 0; font-size: 1.2rem }
-nav li a:hover { opacity: .7 }
+nav.open{right:0}
+nav ul{list-style:none}
+nav li{margin:1.8rem 0;font-size:1.2rem}
+nav li a:hover{opacity:.7}
 
-#dim {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,.45); backdrop-filter: blur(2px);
-  opacity: 0; pointer-events: none;
-  transition: opacity .3s; z-index: 900;
+#dim{
+  position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);
+  opacity:0;pointer-events:none;transition:opacity .3s;z-index:900
 }
-#dim.show { opacity: 1; pointer-events: auto }
+#dim.show{opacity:1;pointer-events:auto}
 
 /* Sections */
-section { max-width: 900px; margin: 0 auto; padding: 2rem 1rem 3rem }
-section h2 {
-  font-size: 1.8rem; margin-bottom: .8rem;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: .4rem; font-weight: 600;
-}
+section{max-width:900px;margin:0 auto;padding:2rem 1rem 3rem}
+section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--border);
+           padding-bottom:.4rem;font-weight:600}
 
-/* Carousel Cards */
-.card-carousel {
-  display: flex; gap: 1.2rem;
-  overflow-x: auto; padding-bottom: .3rem; margin-top: 1.2rem;
-  scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+/* Carousel */
+.card-carousel{
+  display:flex;gap:1.2rem;overflow-x:auto;padding-bottom:.3rem;margin-top:1.2rem;
+  scroll-snap-type:x mandatory;overscroll-behavior-x:contain
 }
-.card-carousel::-webkit-scrollbar { display: none }
-.card {
-  flex: 0 0 240px; height: 320px;
-  border: 1px solid var(--border); border-radius: 16px;
-  background: #111; position: relative;
-  scroll-snap-align: center; overflow: hidden;
+.card-carousel::-webkit-scrollbar{display:none}
+.card{
+  flex:0 0 240px;height:320px;border:1px solid var(--border);border-radius:16px;
+  background:#111;position:relative;scroll-snap-align:center
 }
-.card h3 {
-  position: absolute; top: 33%; left: 1rem; transform: translateY(-50%);
-  font-size: 1.45rem; font-weight: 600; line-height: 1.25;
-  max-width: 90%; text-align: left;
-}
+.card h3{position:absolute;top:33%;left:1rem;transform:translateY(-50%);
+         font-size:1.45rem;font-weight:600;line-height:1.25;max-width:90%}
 
 /* Contact Icons */
-.social-links {
-  display: flex; justify-content: center;
-  gap: 1.5rem; margin-top: 1rem;
-}
-.social-links a {
-  display: inline-block;
-  width: 36px; height: 36px;
-  color: #fff;
-}
-.social-links svg {
-  width: 100%; height: 100%;
-  stroke: currentColor; stroke-width: 2; fill: none;
-  stroke-linecap: round; stroke-linejoin: round;
-}
+.social-links{display:flex;justify-content:center;gap:1.5rem;margin-top:1rem}
+.social-links a{display:inline-block;width:36px;height:36px;color:#fff}
+.social-links svg{width:100%;height:100%;stroke:currentColor;stroke-width:2;fill:none;
+                  stroke-linecap:round;stroke-linejoin:round}
 
-/* Reveal on scroll */
-.reveal { opacity: 0; transition: opacity .75s ease-out }
-.reveal.active { opacity: 1 }
+/* Reveal */
+.reveal{opacity:0;transition:opacity .75s ease-out}
+.reveal.active{opacity:1}
 
-@media (min-width: 600px) { nav a { font-size: 1.1rem } }
+@media(min-width:600px){nav a{font-size:1.1rem}}
 </style>
 </head>
 <body class="loading">
 
 <!-- ---------- Loader ---------- -->
-<div id="loader">
-  <div class="bar-frame"><div class="bar-progress"></div></div>
-</div>
+<div id="loader"><div class="bar-frame"><div class="bar-progress"></div></div></div>
 
 <!-- ---------- Dimmer ---------- -->
 <div id="dim"></div>
 
-<!-- ---------- Hamburger Button ---------- -->
+<!-- ---------- Menu Button ---------- -->
 <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">
-  <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+  <span class="bar bar1"></span>
+  <span class="bar bar2"></span>
 </button>
 
 <!-- ---------- Sidebar Navigation ---------- -->
@@ -228,8 +179,8 @@ section h2 {
     <!-- Email Icon -->
     <a href="mailto:ben_smith_224@yahoo.com" aria-label="Email Ben Smith">
       <svg viewBox="0 0 24 24">
-        <rect x="3" y="5" width="18" height="14" rx="2" ry="2"/>
-        <polyline points="3,7 12,13 21,7"/>
+        <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
+        <polyline points="2,6 12,13 22,6"/>
       </svg>
     </a>
     <!-- Instagram Icon -->
@@ -246,46 +197,25 @@ section h2 {
 <!-- ---------- JavaScript ---------- -->
 <script>
 /* Loader */
-document.addEventListener('DOMContentLoaded', () => {
-  const loader = document.getElementById('loader');
-  setTimeout(() => {
-    loader.classList.add('fade');
-    document.body.classList.remove('loading');
-  }, 3000);
+document.addEventListener('DOMContentLoaded',()=>{
+  const loader=document.getElementById('loader');
+  setTimeout(()=>{loader.classList.add('fade');document.body.classList.remove('loading');},3000);
 });
 
 /* Menu & Dimmer */
-const menuBtn = document.getElementById('menuBtn');
-const sidebar = document.getElementById('sidebar');
-const dim = document.getElementById('dim');
+const menuBtn=document.getElementById('menuBtn'),
+      sidebar=document.getElementById('sidebar'),
+      dim=document.getElementById('dim');
+menuBtn.addEventListener('click',()=>menuBtn.classList.contains('active')?closeMenu():openMenu());
+dim.addEventListener('click',closeMenu);
+function openMenu(){menuBtn.classList.add('active');sidebar.classList.add('open');dim.classList.add('show')}
+function closeMenu(){menuBtn.classList.remove('active');sidebar.classList.remove('open');dim.classList.remove('show')}
 
-menuBtn.addEventListener('click', () =>
-  menuBtn.classList.contains('active') ? closeMenu() : openMenu()
-);
-dim.addEventListener('click', closeMenu);
-
-function openMenu() {
-  menuBtn.classList.add('active');
-  sidebar.classList.add('open');
-  dim.classList.add('show');
-}
-function closeMenu() {
-  menuBtn.classList.remove('active');
-  sidebar.classList.remove('open');
-  dim.classList.remove('show');
-}
-
-/* Reveal on Scroll */
-const obs = new IntersectionObserver((entries, o) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('active');
-      o.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.15 });
-
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+/* Reveal on scroll */
+const obs=new IntersectionObserver((entries,o)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('active');o.unobserve(e.target)}})
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
