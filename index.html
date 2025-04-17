@@ -5,150 +5,168 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ben Smith — Mechanical MEng Student</title>
 
-  <!-- ---------- Typography: San Francisco Pro (system) ---------- -->
+  <!-- ---------- San Francisco Pro (system) ---------- -->
   <style>
-    @font-face {
-      font-family: "SF Pro";
-      src: local("SF Pro Display"), local("San Francisco Pro"),
-           local("SF Pro Text"), local("-apple-system");
+    @font-face{
+      font-family:"SF Pro";
+      src:local("SF Pro Display"),local("San Francisco Pro"),
+          local("SF Pro Text"),local("-apple-system");
     }
     :root{
-      --bg:#000;
-      --fg:#fff;
-      --accent:#1e1e1e;
-      --font:"SF Pro",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
+      --bg:#000;--fg:#fff;--accent:#1e1e1e;
+      --font:"SF Pro",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
     }
     *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      background:var(--bg);color:var(--fg);
-      font-family:var(--font);line-height:1.6;
-      -webkit-font-smoothing:antialiased;
-    }
+    body{background:var(--bg);color:var(--fg);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
     a{color:var(--fg);text-decoration:none}
+    html{scroll-behavior:smooth}
   </style>
 
-  <!-- ---------- Layout & Style ---------- -->
+  <!-- ---------- Layout & Components ---------- -->
   <style>
     /* Header */
-    header{
-      padding:4rem 1rem 2.5rem;
-      text-align:center;
-    }
+    header{text-align:center;padding:4rem 1rem 2.5rem}
     header h1{font-size:2.8rem;font-weight:600;margin-top:1.5rem}
     header p{font-size:1.2rem;opacity:.8}
 
     /* Cog logo */
-    .logo{
-      width:90px;margin:0 auto;
-      fill:#fff;
-      transition:transform .8s cubic-bezier(.68,-.55,.27,1.55);
-    }
+    .logo{width:90px;margin:0 auto;fill:#fff;transition:transform .8s cubic-bezier(.68,-.55,.27,1.55)}
     .logo:hover{transform:rotate(200deg)}
 
-    /* Menu button (hamburger) */
+    /* Fixed hamburger */
     .menu-btn{
-      position:fixed;top:18px;right:20px;
-      width:32px;height:26px;
+      position:fixed;top:18px;right:20px;width:32px;height:26px;
       display:flex;flex-direction:column;justify-content:space-between;
-      background:transparent;border:0;cursor:pointer;
-      z-index:1001;
+      background:transparent;border:0;cursor:pointer;z-index:1001
     }
-    .bar{
-      width:100%;height:3px;background:#fff;border-radius:2px;
-      transition:transform .3s,opacity .2s;
-    }
-    /* transform to X when active */
+    .bar{width:100%;height:3px;background:#fff;border-radius:2px;transition:transform .3s,opacity .2s}
     .menu-btn.active .bar:nth-child(1){transform:translateY(11px) rotate(45deg)}
     .menu-btn.active .bar:nth-child(2){opacity:0}
     .menu-btn.active .bar:nth-child(3){transform:translateY(-11px) rotate(-45deg)}
 
-    /* Sidebar navigation */
+    /* Sidebar nav */
     nav{
-      position:fixed;top:0;right:-100%;
-      width:70%;max-width:280px;height:100%;
-      background:var(--accent);
-      padding:5rem 2rem;
-      transition:right .35s ease;
-      z-index:1000;
+      position:fixed;top:0;right:-100%;width:70%;max-width:280px;height:100%;
+      background:var(--accent);padding:5rem 2rem;transition:right .35s ease;z-index:1000
     }
     nav.open{right:0}
     nav ul{list-style:none}
     nav li{margin:1.8rem 0;font-size:1.2rem}
     nav li a:hover{opacity:.7}
 
-    /* Main sections */
-    section{
-      max-width:800px;
-      margin:0 auto;padding:2rem 1rem 3rem;
+    /* Sections */
+    section{max-width:900px;margin:0 auto;padding:2rem 1rem 3rem}
+    section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid #444;padding-bottom:.4rem;font-weight:600}
+
+    /* Flash‑card grid */
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+    .card{
+      position:relative;height:260px;border-radius:12px;overflow:hidden;
+      display:flex;align-items:flex-end;padding:1rem;color:#fff;font-weight:600;
+      background-size:cover;background-position:center
     }
-    section h2{
-      font-size:1.8rem;margin-bottom:.8rem;
-      border-bottom:1px solid #444;padding-bottom:.4rem;
-      font-weight:600;
+    .card::before{
+      content:"";position:absolute;inset:0;
+      background:rgba(255,255,255,.08);backdrop-filter:blur(6px);mix-blend-mode:overlay
     }
-    /* Smooth scrolling */
-    html{scroll-behavior:smooth}
+    .card h3{position:relative;z-index:1;font-size:1.2rem}
+
+    /* Reveal‑on‑scroll */
+    .reveal{opacity:0;transform:translateY(40px);transition:.6s ease-out opacity,.6s ease-out transform}
+    .reveal.active{opacity:1;transform:translateY(0)}
+
+    /* Responsive tweak */
+    @media(min-width:600px){nav a{font-size:1.1rem}}
   </style>
 </head>
 <body>
 
-  <!-- ---------- Hamburger Button ---------- -->
+  <!-- ---------- Hamburger ---------- -->
   <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">
-    <span class="bar"></span>
-    <span class="bar"></span>
-    <span class="bar"></span>
+    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
   </button>
 
-  <!-- ---------- Slide‑in Navigation ---------- -->
+  <!-- ---------- Sidebar ---------- -->
   <nav id="sidebar">
     <ul>
       <li><a href="#home"  onclick="closeMenu()">Home</a></li>
       <li><a href="#about" onclick="closeMenu()">About</a></li>
-      <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+      <li><a href="#skills"onclick="closeMenu()">Skills</a></li>
+      <li><a href="#contact"onclick="closeMenu()">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- ---------- Header / Hero ---------- -->
+  <!-- ---------- Header ---------- -->
   <header id="home">
-    <!-- Inline basic white cog SVG -->
     <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <path d="M94 56v-12l-8-2c-1-4-2-7-4-11l5-6-9-9-6 5c-4-2-7-3-11-4l-2-8H44l-2 8c-4 1-7 2-11 4l-6-5-9 9 5 6c-2 4-3 7-4 11l-8 2v12l8 2c1 4 2 7 4 11l-5 6 9 9 6-5c4 2 7 3 11 4l2 8h12l2-8c4-1 7-2 11-4l6 5 9-9-5-6c2-4 3-7 4-11l8-2Zm-44 9a15 15 0 1 1 0-30 15 15 0 0 1 0 30Z"/>
     </svg>
-
-    <h1>Ben Smith</h1>
-    <p>Mechanical MEng Student</p>
+    <h1 class="reveal">Ben Smith</h1>
+    <p class="reveal">Mechanical MEng Student</p>
   </header>
 
-  <!-- ---------- About Me Section ---------- -->
+  <!-- ---------- About ---------- -->
   <section id="about">
-    <h2>About Me</h2>
-    <p>
-      I’m a 25‑year‑old engineering master’s student with a keen interest in
-      contributing toward space exploration and research technology. My hobbies include
-      playing chess and reading non‑fiction literature on a wide range of topics.
+    <h2 class="reveal">About Me</h2>
+    <p class="reveal">
+      I’m a 25‑year‑old engineering master’s student with a keen interest in contributing toward
+      space exploration and research technology. My hobbies include playing chess and reading
+      non‑fiction literature on a wide range of topics.
     </p>
   </section>
 
-  <!-- ---------- Contact Section (placeholder) ---------- -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+  <!-- ---------- Skills (flash cards) ---------- -->
+  <section id="skills">
+    <h2 class="reveal">Skills</h2>
+    <div class="card-grid">
+      <div class="card reveal" style="background-image:url('https://images.unsplash.com/photo-1581091222074-1b5618294d6b?auto=format&fit=crop&w=800&q=60')">
+        <h3>CAD (SolidWorks)</h3>
+      </div>
+      <div class="card reveal" style="background-image:url('https://images.unsplash.com/photo-1533674689017-5e585c92c5f3?auto=format&fit=crop&w=800&q=60')">
+        <h3>Advanced Mathematics</h3>
+      </div>
+      <div class="card reveal" style="background-image:url('https://images.unsplash.com/photo-1515825752080-bf2ed563f3cf?auto=format&fit=crop&w=800&q=60')">
+        <h3>CNC Manufacturing</h3>
+      </div>
+      <div class="card reveal" style="background-image:url('https://images.unsplash.com/photo-1519331379826-bdfa2dbf32f6?auto=format&fit=crop&w=800&q=60')">
+        <h3>Technical Reports</h3>
+      </div>
+      <div class="card reveal" style="background-image:url('https://images.unsplash.com/photo-1551836022-4c4c79ecde16?auto=format&fit=crop&w=800&q=60')">
+        <h3>Collaboration</h3>
+      </div>
+    </div>
   </section>
 
-  <!-- ---------- JavaScript ---------- -->
-  <script>
-    const menuBtn = document.getElementById("menuBtn");
-    const sidebar = document.getElementById("sidebar");
+  <!-- ---------- Contact ---------- -->
+  <section id="contact">
+    <h2 class="reveal">Contact</h2>
+    <p class="reveal">
+      Email: <a href="mailto:ben_smith_224@yahoo.com">ben_smith_224@yahoo.com</a>
+    </p>
+  </section>
 
-    function toggleMenu(){
-      menuBtn.classList.toggle("active");
-      sidebar.classList.toggle("open");
-    }
-    function closeMenu(){
-      menuBtn.classList.remove("active");
-      sidebar.classList.remove("open");
-    }
+  <!-- ---------- JS: menu & reveal ---------- -->
+  <script>
+    const menuBtn=document.getElementById("menuBtn");
+    const sidebar=document.getElementById("sidebar");
+
+    function toggleMenu(){menuBtn.classList.toggle("active");sidebar.classList.toggle("open")}
+    function closeMenu(){menuBtn.classList.remove("active");sidebar.classList.remove("open")}
     menuBtn.addEventListener("click",toggleMenu);
+
+    /* appear‑on‑scroll */
+    document.addEventListener("DOMContentLoaded",()=>{
+      const items=document.querySelectorAll(".reveal");
+      const obs=new IntersectionObserver((ents,observer)=>{
+        ents.forEach(ent=>{
+          if(ent.isIntersecting){
+            ent.target.classList.add("active");
+            observer.unobserve(ent.target);
+          }
+        });
+      },{threshold:.15});
+      items.forEach(i=>obs.observe(i));
+    });
   </script>
 </body>
 </html>
