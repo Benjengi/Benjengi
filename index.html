@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Ben Smith — Mechanical MEng Student</title>
 
-<!-- ---------- San Francisco Pro (system) ---------- -->
+<!-- ---------- San Francisco Pro (system) ---------- -->
 <style>
 @font-face{
   font-family:"SF Pro";
@@ -63,27 +63,29 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
   display:flex;gap:1.2rem;overflow-x:auto;padding-bottom:.3rem;margin-top:1.2rem;
   scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior-x:contain
 }
-.card-carousel::-webkit-scrollbar{display:none}       /* hide scrollbar in WebKit */
+.card-carousel::-webkit-scrollbar{display:none}
 
 .card{
   flex:0 0 240px;height:320px;position:relative;
   border:1px solid var(--border);border-radius:16px;overflow:hidden;
   background-size:cover;background-position:center;
-  scroll-snap-align:start;
+  scroll-snap-align:center;
+  transition:transform .35s;
 }
-.card::before{           /* glassy veil */
+.card.in-view{transform:scale(1.07)}
+.card::before{
   content:"";position:absolute;inset:0;
   background:rgba(255,255,255,.07);backdrop-filter:blur(6px);mix-blend-mode:overlay
 }
-/* text 1/3 down */
+/* text left, 1/3 down */
 .card h3{
-  position:absolute;top:33%;left:50%;transform:translate(-50%,-50%);
-  font-size:1.35rem;font-weight:600;line-height:1.25;text-align:center;z-index:1
+  position:absolute;top:33%;left:1rem;transform:translateY(-50%);
+  font-size:1.45rem;font-weight:600;line-height:1.25;text-align:left;z-index:1
 }
 
-/* Reveal‑on‑scroll */
-.reveal{opacity:0;transform:translateY(40px);transition:.6s ease-out opacity,.6s ease-out transform}
-.reveal.active{opacity:1;transform:translateY(0)}
+/* Reveal‑on‑scroll (fade only) */
+.reveal{opacity:0;transition:opacity .9s ease-out}
+.reveal.active{opacity:1}
 
 @media(min-width:600px){nav a{font-size:1.1rem}}
 </style>
@@ -155,27 +157,28 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
   </p>
 </section>
 
-<!-- ---------- JS: menu & reveal ---------- -->
+<!-- ---------- JS: menu, reveal & card focus ---------- -->
 <script>
+/* hamburger */
 const menuBtn=document.getElementById("menuBtn");
 const sidebar=document.getElementById("sidebar");
-function toggleMenu(){menuBtn.classList.toggle("active");sidebar.classList.toggle("open")}
+menuBtn.addEventListener("click",()=>{menuBtn.classList.toggle("active");sidebar.classList.toggle("open")});
 function closeMenu(){menuBtn.classList.remove("active");sidebar.classList.remove("open")}
-menuBtn.addEventListener("click",toggleMenu);
 
-/* appear‑on‑scroll */
-document.addEventListener("DOMContentLoaded",()=>{
-  const items=document.querySelectorAll(".reveal");
-  const obs=new IntersectionObserver((ents,observer)=>{
-    ents.forEach(ent=>{
-      if(ent.isIntersecting){
-        ent.target.classList.add("active");
-        observer.unobserve(ent.target);
-      }
-    });
-  },{threshold:.15});
-  items.forEach(i=>obs.observe(i));
-});
+/* fade‑in reveal */
+const revealObs=new IntersectionObserver((es,o)=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("active");o.unobserve(e.target)}});
+},{threshold:.15});
+document.querySelectorAll(".reveal").forEach(el=>revealObs.observe(el));
+
+/* card in‑view scale */
+const carousel=document.querySelector(".card-carousel");
+const cardObs=new IntersectionObserver((ents)=>{
+  ents.forEach(ent=>{
+    ent.target.classList.toggle("in-view",ent.isIntersecting);
+  });
+},{root:carousel,threshold:.6});
+document.querySelectorAll(".card").forEach(c=>cardObs.observe(c));
 </script>
 </body>
 </html>
