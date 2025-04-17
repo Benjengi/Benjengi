@@ -77,17 +77,15 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
   background-size:cover;background-position:center;
   scroll-snap-align:center;
 }
-/* removed glossy ::before overlay */
-
-/* text left, 1/3 down, force wrap to two lines */
+/* text left, 1/3 down, two‑line wrap */
 .card h3{
   position:absolute;top:33%;left:1rem;transform:translateY(-50%);
   font-size:1.45rem;font-weight:600;line-height:1.25;text-align:left;z-index:1;
   max-width:90%;word-break:break-word;
 }
 
-/* ---------- Appear‑on‑scroll (no fade) ---------- */
-.reveal{opacity:0}
+/* ---------- Appear‑on‑scroll (for non‑card content) ---------- */
+.reveal{opacity:0;transition:opacity .75s ease-out}
 .reveal.active{opacity:1}
 
 @media(min-width:600px){nav a{font-size:1.1rem}}
@@ -137,19 +135,19 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
   <h2 class="reveal">Skills</h2>
 
   <div class="card-carousel">
-    <div class="card reveal" style="background-image:url('https://images.unsplash.com/photo-1581091222074-1b5618294d6b?auto=format&fit=crop&w=800&q=60')">
+    <div class="card" style="background-image:url('https://images.unsplash.com/photo-1581091222074-1b5618294d6b?auto=format&fit=crop&w=800&q=60')">
       <h3>CAD<br>(SolidWorks)</h3>
     </div>
-    <div class="card reveal" style="background-image:url('https://images.unsplash.com/photo-1533674689017-5e585c92c5f3?auto=format&fit=crop&w=800&q=60')">
+    <div class="card" style="background-image:url('https://images.unsplash.com/photo-1533674689017-5e585c92c5f3?auto=format&fit=crop&w=800&q=60')">
       <h3>Advanced<br>Maths</h3>
     </div>
-    <div class="card reveal" style="background-image:url('https://images.unsplash.com/photo-1515825752080-bf2ed563f3cf?auto=format&fit=crop&w=800&q=60')">
+    <div class="card" style="background-image:url('https://images.unsplash.com/photo-1515825752080-bf2ed563f3cf?auto=format&fit=crop&w=800&q=60')">
       <h3>CNC<br>Manufacturing</h3>
     </div>
-    <div class="card reveal" style="background-image:url('https://images.unsplash.com/photo-1519331379826-bdfa2dbf32f6?auto=format&fit=crop&w=800&q=60')">
+    <div class="card" style="background-image:url('https://images.unsplash.com/photo-1519331379826-bdfa2dbf32f6?auto=format&fit=crop&w=800&q=60')">
       <h3>Technical<br>Reports</h3>
     </div>
-    <div class="card reveal" style="background-image:url('https://images.unsplash.com/photo-1551836022-4c4c79ecde16?auto=format&fit=crop&w=800&q=60')">
+    <div class="card" style="background-image:url('https://images.unsplash.com/photo-1551836022-4c4c79ecde16?auto=format&fit=crop&w=800&q=60')">
       <h3>Collaboration</h3>
     </div>
   </div>
@@ -183,7 +181,7 @@ function closeMenu(){
 menuBtn.addEventListener("click",()=>menuBtn.classList.contains("active")?closeMenu():openMenu());
 dim.addEventListener("click",closeMenu);
 
-/* appear‑on‑scroll (instant) */
+/* appear‑on‑scroll (non‑card elements) */
 const obs=new IntersectionObserver((entries,o)=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("active");o.unobserve(e.target)}});
 },{threshold:.15});
