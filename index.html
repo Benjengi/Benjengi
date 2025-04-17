@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Ben Smith — Mechanical MEng Student</title>
+<title>Ben Smith — Mechanical MEng Student</title>
 
-<!-- ---------- San Francisco Pro (system) ---------- -->
+<!-- ---------- Fonts ---------- -->
 <style>
 @font-face{
   font-family:"SF Pro";
@@ -29,23 +29,19 @@ body.loading{overflow:hidden}
   z-index:2000;opacity:1;transition:opacity .6s ease-out,visibility 0s .6s;
 }
 #loader.fade{opacity:0;visibility:hidden}
-.bar-frame{
-  width:35%;                       /* half the previous width */
-  max-width:400px;height:6px;
-  border:1px solid var(--border);
-}
-.bar-progress{
-  height:100%;background:var(--fg);width:0;
-  animation:grow 3s linear forwards;
-}
+.bar-frame{width:35%;max-width:400px;height:6px;border:1px solid var(--border)}
+.bar-progress{height:100%;background:var(--fg);width:0;animation:grow 3s linear forwards}
 @keyframes grow{to{width:100%}}
 </style>
 
-<!-- ---------- SITE LAYOUT & COMPONENTS ---------- -->
+<!-- ---------- SITE STYLES ---------- -->
 <style>
-/* Header (centered) */
+/* Header */
 header{padding:4rem 1rem 2.5rem;text-align:center}
-header h1{font-size:2.8rem;font-weight:600;margin:1.5rem 0 .2rem}
+header h1{
+  font-family:Arial,sans-serif;font-weight:600;
+  font-size:2.8rem;margin:1.5rem 0 .2rem
+}
 header p{font-size:1.2rem;opacity:.8;margin:0}
 
 /* Cog logo */
@@ -83,13 +79,12 @@ nav li a:hover{opacity:.7}
 section{max-width:900px;margin:0 auto;padding:2rem 1rem 3rem}
 section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--border);padding-bottom:.4rem;font-weight:600}
 
-/* ---------- Carousel of flash cards ---------- */
+/* ---------- Carousel ---------- */
 .card-carousel{
   display:flex;gap:1.2rem;overflow-x:auto;padding-bottom:.3rem;margin-top:1.2rem;
   scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior-x:contain
 }
 .card-carousel::-webkit-scrollbar{display:none}
-
 .card{
   flex:0 0 240px;height:320px;position:relative;
   border:1px solid var(--border);border-radius:16px;overflow:hidden;
@@ -101,7 +96,14 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
   max-width:90%;word-break:break-word;
 }
 
-/* ---------- Appear‑on‑scroll (non‑card) ---------- */
+/* ---------- Contact Icons ---------- */
+.social-links{
+  display:flex;gap:1.5rem;align-items:center;margin-top:1rem
+}
+.social-links a{display:inline-block;width:36px;height:36px;color:#fff}
+.social-links svg{width:100%;height:100%}
+
+/* ---------- Appear‑on‑scroll ---------- */
 .reveal{opacity:0;transition:opacity .75s ease-out}
 .reveal.active{opacity:1}
 
@@ -111,9 +113,7 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
 <body class="loading">
 
 <!-- ---------- LOADER ---------- -->
-<div id="loader">
-  <div class="bar-frame"><div class="bar-progress"></div></div>
-</div>
+<div id="loader"><div class="bar-frame"><div class="bar-progress"></div></div></div>
 
 <!-- backdrop dimmer -->
 <div id="dim"></div>
@@ -140,7 +140,7 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
     <path d="M94 56v-12l-8-2c-1-4-2-7-4-11l5-6-9-9-6 5c-4-2-7-3-11-4l-2-8H44l-2 8c-4 1-7 2-11 4l-6-5-9 9 5 6c-2 4-3 7-4 11l-8 2v12l8 2c1 4 2 7 4 11l-5 6 9 9 6-5c4 2 7 3 11 4l2 8h12l2-8c4-1 7-2 11-4l6 5 9-9-5-6c2-4 3-7 4-11l8-2Zm-44 9a15 15 0 1 1 0-30 15 15 0 0 1 0 30Z"/>
   </svg>
   <h1 class="reveal">Ben Smith</h1>
-  <p class="reveal">Mechanical MEng Student</p>
+  <p class="reveal">Mechanical MEng Student</p>
 </header>
 
 <!-- ---------- About ---------- -->
@@ -179,44 +179,39 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
 <!-- ---------- Contact ---------- -->
 <section id="contact">
   <h2 class="reveal">Contact</h2>
-  <p class="reveal">
-    Email: <a href="mailto:ben_smith_224@yahoo.com">ben_smith_224@yahoo.com</a>
-  </p>
+  <div class="social-links reveal">
+    <!-- Email -->
+    <a href="mailto:ben_smith_224@yahoo.com" aria-label="Email Ben Smith">
+      <svg viewBox="0 0 512 512" fill="currentColor">
+        <path d="M502.3 190.8 327.4 338a40 40 0 0 1-50.8 0L9.7 190.8A48 48 0 0 1 0 160V96a48 48 0 0 1 48-48h416a48 48 0 0 1 48 48v64a48 48 0 0 1-9.7 30.8ZM480 224 352 336l128 112V224Zm-448 0v224l128-112L32 224Zm299.6 160.6L256 416l-75.6-31.4L48 480h416L331.6 384.6Z"/>
+      </svg>
+    </a>
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/astromechig" target="_blank" aria-label="Instagram profile">
+      <svg viewBox="0 0 448 512" fill="currentColor">
+        <path d="M224 202a53 53 0 1 0 0 106 53 53 0 1 0 0-106Zm124-41a27 27 0 1 0 0-54 27 27 0 0 0 0 54ZM224 338a114 114 0 1 1 0-228 114 114 0 0 1 0 228Zm0-286C132 52 52 132 52 224s80 172 172 172 172-80 172-172S316 52 224 52Zm0 30c78 0 142 64 142 142S302 366 224 366 82 302 82 224 146 82 224 82Z"/>
+      </svg>
+    </a>
+  </div>
 </section>
 
-<!-- ---------- JS: loader, menu, dimmer & appear‑on‑scroll ---------- -->
+<!-- ---------- JS ---------- -->
 <script>
-/* --------------- Initial Loader --------------- */
+/* Loader */
 document.addEventListener("DOMContentLoaded",()=>{
   const loader=document.getElementById("loader");
-  setTimeout(()=>{
-    loader.classList.add("fade");
-    document.body.classList.remove("loading");
-  },3000);
+  setTimeout(()=>{loader.classList.add("fade");document.body.classList.remove("loading");},3000);
 });
 
-/* --------------- Hamburger & Dimmer --------------- */
-const menuBtn=document.getElementById("menuBtn");
-const sidebar=document.getElementById("sidebar");
-const dim=document.getElementById("dim");
+/* Menu & dimmer */
+const menuBtn=document.getElementById("menuBtn"),sidebar=document.getElementById("sidebar"),dim=document.getElementById("dim");
+menuBtn.addEventListener("click",()=>menuBtn.classList.contains("active")?close():open());
+dim.addEventListener("click",close);
+function open(){menuBtn.classList.add("active");sidebar.classList.add("open");dim.classList.add("show")}
+function close(){menuBtn.classList.remove("active");sidebar.classList.remove("open");dim.classList.remove("show")}
 
-function openMenu(){
-  menuBtn.classList.add("active");
-  sidebar.classList.add("open");
-  dim.classList.add("show");
-}
-function closeMenu(){
-  menuBtn.classList.remove("active");
-  sidebar.classList.remove("open");
-  dim.classList.remove("show");
-}
-menuBtn.addEventListener("click",()=>menuBtn.classList.contains("active")?closeMenu():openMenu());
-dim.addEventListener("click",closeMenu);
-
-/* --------------- Appear‑on‑scroll (non‑card) --------------- */
-const obs=new IntersectionObserver((entries,o)=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("active");o.unobserve(e.target)}});
-},{threshold:.15});
+/* Appear on scroll */
+const obs=new IntersectionObserver((e,o)=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("active");o.unobserve(x.target)}}),{threshold:.15});
 document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
 </script>
 </body>
