@@ -33,7 +33,7 @@ header p{font-size:1.2rem;opacity:.8}
 .logo{width:90px;margin:0 auto;fill:#fff;transition:transform .8s cubic-bezier(.68,-.55,.27,1.55)}
 .logo:hover{transform:rotate(200deg)}
 
-/* Fixed hamburger */
+/* ---------- Menu & Dimmer ---------- */
 .menu-btn{
   position:fixed;top:18px;right:20px;width:32px;height:26px;
   display:flex;flex-direction:column;justify-content:space-between;
@@ -44,7 +44,6 @@ header p{font-size:1.2rem;opacity:.8}
 .menu-btn.active .bar:nth-child(2){opacity:0}
 .menu-btn.active .bar:nth-child(3){transform:translateY(-11px) rotate(-45deg)}
 
-/* Sidebar nav */
 nav{
   position:fixed;top:0;right:-100%;width:70%;max-width:280px;height:100%;
   background:var(--accent);padding:5rem 2rem;transition:right .35s ease;z-index:1000
@@ -53,6 +52,13 @@ nav.open{right:0}
 nav ul{list-style:none}
 nav li{margin:1.8rem 0;font-size:1.2rem}
 nav li a:hover{opacity:.7}
+
+/* translucent backdrop when menu open */
+#dim{
+  position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);
+  opacity:0;pointer-events:none;transition:opacity .3s;z-index:900;
+}
+#dim.show{opacity:1;pointer-events:auto}
 
 /* Sections */
 section{max-width:900px;margin:0 auto;padding:2rem 1rem 3rem}
@@ -71,24 +77,26 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
   background-size:cover;background-position:center;
   scroll-snap-align:center;
 }
-.card::before{                      /* glassy veil */
-  content:"";position:absolute;inset:0;
-  background:rgba(255,255,255,.07);backdrop-filter:blur(6px);mix-blend-mode:overlay;
-}
-/* text left, 1/3 down */
+/* removed glossy ::before overlay */
+
+/* text left, 1/3 down, force wrap to two lines */
 .card h3{
   position:absolute;top:33%;left:1rem;transform:translateY(-50%);
-  font-size:1.45rem;font-weight:600;line-height:1.25;text-align:left;z-index:1
+  font-size:1.45rem;font-weight:600;line-height:1.25;text-align:left;z-index:1;
+  max-width:90%;word-break:break-word;
 }
 
-/* Fade‑in reveal */
-.reveal{opacity:0;transition:opacity .9s ease-out}
+/* ---------- Appear‑on‑scroll (no fade) ---------- */
+.reveal{opacity:0}
 .reveal.active{opacity:1}
 
 @media(min-width:600px){nav a{font-size:1.1rem}}
 </style>
 </head>
 <body>
+
+<!-- backdrop dimmer -->
+<div id="dim"></div>
 
 <!-- ---------- Hamburger ---------- -->
 <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">
@@ -130,16 +138,16 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
 
   <div class="card-carousel">
     <div class="card reveal" style="background-image:url('https://images.unsplash.com/photo-1581091222074-1b5618294d6b?auto=format&fit=crop&w=800&q=60')">
-      <h3>CAD (SolidWorks)</h3>
+      <h3>CAD<br>(SolidWorks)</h3>
     </div>
     <div class="card reveal" style="background-image:url('https://images.unsplash.com/photo-1533674689017-5e585c92c5f3?auto=format&fit=crop&w=800&q=60')">
-      <h3>Advanced Maths</h3>
+      <h3>Advanced<br>Maths</h3>
     </div>
     <div class="card reveal" style="background-image:url('https://images.unsplash.com/photo-1515825752080-bf2ed563f3cf?auto=format&fit=crop&w=800&q=60')">
-      <h3>CNC Manufacturing</h3>
+      <h3>CNC<br>Manufacturing</h3>
     </div>
     <div class="card reveal" style="background-image:url('https://images.unsplash.com/photo-1519331379826-bdfa2dbf32f6?auto=format&fit=crop&w=800&q=60')">
-      <h3>Technical Reports</h3>
+      <h3>Technical<br>Reports</h3>
     </div>
     <div class="card reveal" style="background-image:url('https://images.unsplash.com/photo-1551836022-4c4c79ecde16?auto=format&fit=crop&w=800&q=60')">
       <h3>Collaboration</h3>
@@ -155,19 +163,31 @@ section h2{font-size:1.8rem;margin-bottom:.8rem;border-bottom:1px solid var(--bo
   </p>
 </section>
 
-<!-- ---------- JS: menu & fade‑in reveal ---------- -->
+<!-- ---------- JS: menu, dimmer & appear‑on‑scroll ---------- -->
 <script>
-/* hamburger */
+/* hamburger & dimmer */
 const menuBtn=document.getElementById("menuBtn");
 const sidebar=document.getElementById("sidebar");
-menuBtn.addEventListener("click",()=>{menuBtn.classList.toggle("active");sidebar.classList.toggle("open")});
-function closeMenu(){menuBtn.classList.remove("active");sidebar.classList.remove("open")}
+const dim=document.getElementById("dim");
 
-/* fade‑in reveal */
-const revealObs=new IntersectionObserver((entries,obs)=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("active");obs.unobserve(e.target)}});
+function openMenu(){
+  menuBtn.classList.add("active");
+  sidebar.classList.add("open");
+  dim.classList.add("show");
+}
+function closeMenu(){
+  menuBtn.classList.remove("active");
+  sidebar.classList.remove("open");
+  dim.classList.remove("show");
+}
+menuBtn.addEventListener("click",()=>menuBtn.classList.contains("active")?closeMenu():openMenu());
+dim.addEventListener("click",closeMenu);
+
+/* appear‑on‑scroll (instant) */
+const obs=new IntersectionObserver((entries,o)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("active");o.unobserve(e.target)}});
 },{threshold:.15});
-document.querySelectorAll(".reveal").forEach(el=>revealObs.observe(el));
+document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
