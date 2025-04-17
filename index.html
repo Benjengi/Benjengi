@@ -30,7 +30,9 @@ body.loading{overflow:hidden}
 }
 #loader.fade{opacity:0;visibility:hidden}
 .bar-frame{
-  width:70%;max-width:400px;height:6px;border:1px solid var(--border);
+  width:35%;                       /* half the previous width */
+  max-width:400px;height:6px;
+  border:1px solid var(--border);
 }
 .bar-progress{
   height:100%;background:var(--fg);width:0;
@@ -190,7 +192,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   setTimeout(()=>{
     loader.classList.add("fade");
     document.body.classList.remove("loading");
-  },3000);       // 3‑second load screen
+  },3000);
 });
 
 /* --------------- Hamburger & Dimmer --------------- */
