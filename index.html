@@ -19,16 +19,8 @@ html,body{
   height:100%;
   font-family:var(--sans);
   color:var(--fg);
+  background:#000;               /* ← solid black background   */
   scroll-behavior:smooth;
-  /* subtle animated gradient */
-  background:linear-gradient(125deg,#000428,#004e92,#000428);
-  background-size:200% 200%;
-  animation:bgshift 30s ease infinite;
-}
-@keyframes bgshift{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
 }
 .container{max-width:900px;margin:0 auto;padding:4rem 2rem}
 section h2{font-size:2rem;margin-bottom:1.5rem;font-weight:600}
@@ -69,7 +61,7 @@ section h2{font-size:2rem;margin-bottom:1.5rem;font-weight:600}
 .logo svg{height:100%;width:auto;fill:var(--accent);animation:spin 25s linear infinite;transform-origin:center}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* inline nav below hero (desktop) */
+/* inline nav below hero */
 nav{margin-top:2.2rem}
 nav a{margin:0 .9rem;font-size:1rem;color:var(--fg);text-decoration:none;position:relative}
 nav a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--accent);transition:width .3s}
@@ -112,10 +104,7 @@ nav a:hover::after{width:100%}
   background:var(--surface);padding:1.5rem;border-radius:12px;
   transition:transform .3s,box-shadow .3s;
 }
-.repo:hover{
-  transform:translateY(-4px);
-  box-shadow:0 8px 20px rgba(0,0,0,.55);
-}
+.repo:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,.55)}
 .repo h3{font-size:1.15rem;margin-bottom:.5rem}
 .repo p{font-size:.9rem;opacity:.8;margin-bottom:.7rem}
 .repo a{color:var(--accent);font-size:.9rem;text-decoration:none}
